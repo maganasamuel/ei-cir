@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en" class="material-style layout-fixed">
+
+
+<?php $this->load->view('admin/common/css');?>
+
+
+<body>
+    <!-- [ Preloader ] Start -->
+    <div class="page-loader">
+        <div class="bg-primary"></div>
+    </div>
+    <!-- [ Preloader ] Ebd -->
+
+    <!-- [ Layout wrapper ] Start -->
+      <div class="layout-wrapper layout-2">
+        <div class="layout-inner">
+            <!-- [ Layout sidenav ] Start -->
+            <?php $this->load->view('admin/common/leftnav');?>
+            <!-- [ Layout sidenav ] End -->
+            <!-- [ Layout container ] Start -->
+            <div class="layout-container">
+                <!-- [ Layout navbar ( Header ) ] Start -->
+                <?php $this->load->view('admin/common/topbar');?>
+                <!-- [ Layout navbar ( Header ) ] End -->
+
+                <!-- [ Layout content ] Start -->
+                <div class="layout-content">
+
+                    <!-- [ content ] Start -->
+                      <div class="layout-content">
+
+                    <!-- [ content ] Start -->
+                     <div class="container-fluid flex-grow-1 container-p-y">
+                       
+                        <div class="nav-tabs-top">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#user-edit-account">Compliance Incident Report</a>
+                                </li>
+                            </ul>
+                            <form class="form-horizontal" style="background-color: white;" action="javascript:;" method="POST" id="saveCIRForm">
+                            <div class="tab-content">   
+                                <div class="tab-pane fade show active" id="user-edit-account">
+                                    <div class="card-body pb-2">
+                                        
+                                         <div class="form-group">
+                                            <label class="form-label mb-2">Select Adviser<span style="color:red;"> *</span></label>
+                                            <select id="adviser_id" class="select2-demo form-control select2-hidden-accessible" style="width: 100%" data-select2-id="31" tabindex="-1" aria-hidden="true" onchange="getHistory(this)">
+                                            <?php if($adviser_list){ ?>
+                                                <?php foreach($adviser_list as $adv){ ?>
+                                                     <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
+                                            <?php } ?>
+                                        <?php } ?>   
+                                        </select>
+                                        </div> 
+                                        <div class="form-group">
+                                            <label class="form-label mb-2">Report Number</label><span style="color:red;"> *</span><br>
+                                            <label class="form-label" style="font-size: 15px">CIR2021<?=$report_number['report_number'] ?></label>
+                                            <input type="hidden" id="report_number" class="form-control" value="CIR2021<?=$report_number['report_number'] ?>">
+                                        </div> 
+                                        <div class="form-group">
+                                            <label class="form-label mb-2">Send Date</label><span style="color:red;"> *</span>
+                                            <input type="text" id="b-m-dtp-date" class="form-control" placeholder="Sent Date" data-dtp="dtp_BUxli">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label mb-2">Due Date</label><span style="color:red;"> *</span>
+                                            <input type="text" id="b-m-dtp-date2" class="form-control" placeholder="Due Date" data-dtp="dtp_BUxli">
+                                        </div>
+                                        <div class="form-group">
+                                             <div class="row">
+                                                   <div class="col-lg-12">
+                                                    <div class="input-group input-group-md">
+                                                         <label class="form-label mb-2">Issue Identified</label>
+                                                      <span class="input-group-btn">
+                                                        <a href="javascript:;" onclick="addIdentified()" title="Add issue Identified"><i class="feather icon-plus ml-2 " style="font-size: 17px; color:#00a323;"></i></a>
+                                                      </span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="Identified">
+                                                    <input type="text" class="form-control col-md-3" name="issue_identified[]" placeholder="1.">
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label mb-2">Investigation Information</label><span style="color:red;"> *</span>
+                                            <textarea class="form-control" id="investigation_information" rows="10" cols="10"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                                <div class="row">
+                                                   <div class="col-lg-12">
+                                                    <div class="input-group input-group-md">
+                                                        <label class="form-label mb-2">Issue to be address</label>
+                                                      <span class="input-group-btn">
+                                                        <a href="javascript:;" onclick="addIssueAddress()" title="Add question"><i class="feather icon-plus ml-2 " style="font-size: 17px; color:#00a323;"></i></a>
+                                                      </span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="addIssueAddress">
+                                                    <input type="text" class="form-control col-md-3" name="issue_address[]" placeholder="1.">
+                                                </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <label class="form-label mb-2">Adviser Compliance History</label>
+                                            <div class="history"></div>
+                                        </div>
+                                    </div>
+                                    <hr class="border-light m-0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <button type="submit" id="save_cir" class="btn btn-primary" onclick="save()">Submit</button>&nbsp;
+                            <input type="hidden" id="token" name="token" value="<?=  $_GET['token']; ?>">
+                            <input type="hidden" id="user_id" name="user_id" value="<?=  $user_details['id'] ?>">
+                        </div>
+                        <input type="hidden" id="numberChk" value="1"> 
+                        <input type="hidden" id="numberChk2" value="1"> 
+                    </form> 
+                </div>
+                    <!-- [ content ] End -->
+
+                    <!-- [ Layout footer ] Start -->
+                    <?php $this->load->view('admin/common/footer');?>
+                    <!-- [ Layout footer ] End -->
+                </div>
+                <!-- [ Layout content ] Start -->
+            </div>
+            <!-- [ Layout container ] End -->
+        </div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-sidenav-toggle"></div>
+    </div>
+    <!-- [ Layout wrapper ] end -->
+
+    <!-- Core scripts -->
+    <?php $this->load->view('admin/common/js');?>
+    <script src="<?=base_url();?>assets/admin/js/pages/forms_pickers.js"></script>
+    <script type="text/javascript">
+            var base_url = $('#base_url').val();
+            function addIdentified(){
+                var ctr = parseInt($('#numberChk').val()) + 1;
+                var new_input = '<input type="text" class="form-control col-md-3" name="issue_identified[]" placeholder="'+ctr+'.">';
+                $('.Identified').append(new_input);
+                $('#numberChk').val(ctr);
+            }
+            function addIssueAddress(){
+                var ctr = parseInt($('#numberChk2').val()) + 1;
+                var new_input = '<input type="text" class="form-control col-md-3" name="issue_address[]" placeholder="'+ctr+'.">';
+                $('.addIssueAddress').append(new_input);
+                $('#numberChk2').val(ctr);
+            }
+
+            function save(){
+                var issue_identified = $("input[name='issue_identified[]']").map(function(){return $(this).val();}).get();
+                var issue_address= $("input[name='issue_address[]']").map(function(){return $(this).val();}).get();
+                $("#save_cir").buttonLoader('start');
+                $.ajax({
+                    url: base_url+'Admin/add_cir',
+                    type: 'POST',
+                    data: {
+                        adviser_id: $("#adviser_id").val(),
+                        report_number: $("#report_number").val(),
+                        send_date: $("#b-m-dtp-date").val(),
+                        due_date: $("#b-m-dtp-date2").val(),
+                        issue_identified: issue_identified,
+                        investigation_information: $("#investigation_information").val(),
+                        issue_address: issue_address,
+                        token: $("#token").val(),
+                        representative_id: $("#user_id").val() //TO DO GET SESSION OR PARAMT
+                    },
+                    success: (res) => {
+                        console.log(res);
+                        if(res==1){
+                            $("#save_cir").buttonLoader('stop');
+                            swal({ 
+                                title: "Sent", 
+                                text: "CIR submitted and emailed to adviser!",
+                                type: "success" 
+                            },function(ret) {
+                                window.location.reload();
+                            })
+                        }else{
+                            $("#save_cir").buttonLoader('stop');
+                            swal("Failed", "Something went wrong,Please try again!", "error");
+                        }
+                    }
+               });
+            }
+
+            function getHistory(id){
+                $.ajax({
+                    url: base_url+'Admin/getHistory',
+                    type: 'POST',
+                    data: {
+                        adviser_id:id.value,
+                        token:$("#token").val()
+                    },
+                    success: (res) => {
+
+                        $(".history").html('');
+                        var obj = jQuery.parseJSON(res.toString())
+                        console.log(obj)
+                        console.log(obj.length)
+                        for(var i=0; i < obj.length; i++){
+                            $(".history").append('<label style="margin-right: 5px;">CIR2021'+obj[i]['report_number']+'</label>')
+                        }
+                    }
+               });   
+            }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
