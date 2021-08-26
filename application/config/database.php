@@ -81,10 +81,10 @@ $query_builder = true;
 
 $db['default'] = [
     'dsn' => '',
-    'hostname' => /* $_ENV['DB_HOST'] */ 'localhost',
-    'username' => /* $_ENV['DB_USER'] */ 'root',
-    'password' => /* $_ENV['DB_PASS'] */ '',
-    'database' => /* $_ENV['DB_NAME'] */ 'ei_register',
+    'hostname' => $_ENV['DB_HOST'] ,
+    'username' => $_ENV['DB_USER'] ,
+    'password' => $_ENV['DB_PASS'] ,
+    'database' => $_ENV['DB_NAME'] ,
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => false,
