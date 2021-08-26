@@ -5,7 +5,7 @@ if (!defined('BASEPATH')) {
 }
 
 // file: application/libraries/Env.php
-class Env
+class CI_Env
 {
     public function __construct()
     {
