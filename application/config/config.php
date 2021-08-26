@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://localhost/ei-cir';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,14 +35,14 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
 |--------------------------------------------------------------------------
 |
-| This item determines which server global should be used to retrieve the
+| This item determines which server global should be used to retrieve there
 | URI string.  The default setting of 'REQUEST_URI' works for most servers.
 | If your links do not seem to work, try one of the other delicious flavors:
 |
@@ -136,7 +136,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] =  FCPATH. 'vendor'. DIRECTORY_SEPARATOR . 'autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -377,15 +377,21 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
+
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+$config['sess_save_path'] = FCPATH  . 'application/cache/sessions/';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
-$config['sess_regenerate_destroy'] = FALSE;
+$config['sess_regenerate_destroy'] = TRUE;
+
+
 
 /*
+$config['sess_expiration']  = 8600;
+$config['sess_match_useragent'] = FALSE;
+
 |--------------------------------------------------------------------------
 | Cookie Related Variables
 |--------------------------------------------------------------------------
@@ -400,12 +406,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
 
+$config['cookie_prefix']	= ""; 
+$config['cookie_domain']	= ""; 
+$config['cookie_path']		= "/"; 
+$config['cookie_secure']	= FALSE;
 /*
 |--------------------------------------------------------------------------
 | Standardize newlines
