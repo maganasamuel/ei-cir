@@ -1,5 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+use Dotenv\Dotenv;
+
+defined('BASEPATH') or exit('No direct script access allowed');
+
+$dotenv = Dotenv::createImmutable(FCPATH);
+$dotenv->load();
 
 /*
 | -------------------------------------------------------------------
@@ -69,28 +75,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
-*/
+ */
 $active_group = 'default';
-$query_builder = TRUE;
+$query_builder = true;
 
-$db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'ei_register',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
+$db['default'] = [
+    'dsn' => '',
+    'hostname' => /* $_ENV['DB_HOST'] */ 'localhost',
+    'username' => /* $_ENV['DB_USER'] */ 'root',
+    'password' => /* $_ENV['DB_PASS'] */ '',
+    'database' => /* $_ENV['DB_NAME'] */ 'ei_register',
+    'dbdriver' => 'mysqli',
+    'dbprefix' => '',
+    'pconnect' => false,
+    'db_debug' => ('production' !== $_ENV['ENVIRONMENT']),
+    'cache_on' => false,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => false,
+    'compress' => false,
+    'stricton' => false,
+    'failover' => [],
+    'save_queries' => true,
+];
