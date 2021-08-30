@@ -84,7 +84,7 @@ facts or events as investigated by me.</p><br><br>
   </div>
   <div class="column">
     <label>Date: <span>______________________________<span ></span></label>
-    <div style="margin-top: -20px; margin-left: 100px;"><?= $report_details_cir['rep_response_date']?></div>
+    <div style="margin-top: -20px; margin-left: 100px;"><?= date('d-m-Y', strtotime($report_details_cir['rep_response_date'])) ?></div>
   </div>
 </div>
 

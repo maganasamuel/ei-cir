@@ -332,7 +332,7 @@ img {
 <label>Finalised by: _______________________</label>
 <label>Signature:________________________</label>
 <label>Date:____________________</label>
-<div style="margin-top: -20px; margin-left: 520px;" ><?= $report_details_cir['rep_response_date']?></div>
+<div style="margin-top: -20px; margin-left: 520px;" ><?= date('d-m-Y', strtotime($report_details_cir['rep_response_date']))?></div>
 <img class="rep_signa" src="<?= $report_details_cir['rep_signature']?>">
 </body>
 </html>
