@@ -57,7 +57,7 @@
   <tr style="background-color: #c0e1fa;">
     <td width="250px">Date Sent & Due</td>
     <td>
-    	Sent Date: <?= $report_details_cir['send_date'] ?> <span style="text-align: center;">Due Date: <?= $report_details_cir['due_date'] ?></span>
+    	Sent Date: <?= date('d-m-Y', strtotime($report_details_cir['send_date']))  ?> <span style="text-align: center;">Due Date: <?= date('d-m-Y', strtotime($report_details_cir['due_date'])) ?></span>
     </td>
   </tr>
   <tr>

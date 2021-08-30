@@ -84,7 +84,7 @@ in the review of my Contractual Agreement with Eliteinsure Limited</p><br><br>
   </div>
   <div class="column">
     <label>Date: <span>______________________________<span ></span></label>
-    <div style="margin-top: -20px; margin-left: 100px;"><?= $report_details_cir['adv_response_date']?></div>
+    <div style="margin-top: -20px; margin-left: 100px;"><?= date('d-m-Y', strtotime($report_details_cir['adv_response_date'])) ?></div>
   </div>
 </div>
 

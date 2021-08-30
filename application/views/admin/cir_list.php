@@ -75,10 +75,10 @@
                                                     <?=$cir['name'] ?> 
                                                 </td>
                                                  <td>
-                                                    <?=$cir['send_date'] ?> 
+                                                    <?=  date('d-m-Y', strtotime($cir['send_date'])) ?> 
                                                 </td>
                                                 <td>
-                                                    <?=$cir['due_date'] ?> 
+                                                    <?= date('d-m-Y', strtotime($cir['due_date'])) ?> 
                                                 </td>
                                                 <td>
                                                      <?php if($cir['status'] == 0){ ?>

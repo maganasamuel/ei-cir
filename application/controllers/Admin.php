@@ -208,12 +208,12 @@ class Admin extends CI_Controller
         $data['cir_max'] = $this->admin_model->cir_max();
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
 
-        $htmlFooter = '
-         <footer>
-              <div class="footer" style="font-size:6pt;>
-                <img src="<?=base_url();?>assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
+           $htmlFooter = '
+            <footer>
+              <div class="footer" style="font-size:6pt;">
+                <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
               </div>
-          </footer>';
+            </footer>';
 
         $mpdf = new \Mpdf\Mpdf();
         $cirtemplate = $this->load->view('admin/cirtemplate', $data, true);
@@ -246,6 +246,11 @@ class Admin extends CI_Controller
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($followup);
 
+        $final = $this->load->view('admin/finalisation', $data, true);
+        $mpdf->SetHTMLFooter($htmlFooter);
+        $mpdf->AddPage('P');
+        $mpdf->WriteHTML($final);
+
         $content = $mpdf->Output('', 'S');
 
         $attachment = (new Swift_Attachment($content, 'CIR REPORT', 'application/pdf'));
@@ -254,7 +259,7 @@ class Admin extends CI_Controller
         $message->setSubject('CIR');
 
         $message->setFrom([$_ENV['MAIL_FROM_ADDRESS'] => $_ENV['MAIL_FROM_NAME']]);
-        $message->setTo('executive.admin@eliteinsure.co.nz');
+        $message->setTo('allanaranda4@gmail.com');
 
         $message->setBody('Please see attached file for CIR Report');
 
