@@ -11,7 +11,6 @@ class Admin_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-
         $dotenv = Dotenv::createImmutable(FCPATH);
         $dotenv->load();
     }
@@ -45,15 +44,16 @@ class Admin_model extends CI_Model
     public function add_cir()
     {
         $link_password = $this->generateRandomString();
-        $data = [
-            'report_number' => $this->input->post('report_number'),
-            'send_date' => $this->input->post('send_date'),
-            'due_date' => $this->input->post('due_date'),
-            'investigation_information' => $this->input->post('investigation_information'),
-            'adviser_id' => $this->input->post('adviser_id'),
-            'link_password' => $link_password,
-            'representative_id' => $this->input->post('representative_id'),
-        ];
+        
+          $data = array(
+                'report_number' => $this->input->post('report_number'),
+                'send_date' => $this->input->post('send_date'),
+                'due_date' => $this->input->post('due_date'),
+                'investigation_information' => $this->input->post('investigation_information'),
+                'adviser_id' => $this->input->post('adviser_id'),
+                'link_password' => $link_password,
+                'representative_id' => $this->input->post('representative_id'),
+        ); 
 
         $res = $this->db->insert('ta_cir', $data);
         $uid = $this->db->insert_id();
@@ -62,20 +62,20 @@ class Admin_model extends CI_Model
         $issue_address = $this->input->post('issue_address');
 
         foreach ($issue_address as $value) {
-            $data = [
+            $data = array(
                 'report_number' => $uid,
                 'issue_address' => $value,
-            ];
+            );
             $res = $this->db->insert('ta_cir_address', $data);
         }
 
         $issue_identified = $this->input->post('issue_identified');
 
         foreach ($issue_identified as $value) {
-            $data = [
+            $data = array(
                 'report_number' => $uid,
                 'issue_identified' => $value,
-            ];
+            );
             $res = $this->db->insert('ta_cir_identified', $data);
         }
 
@@ -115,7 +115,7 @@ class Admin_model extends CI_Model
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
-            $data = ['access_status' => 1];
+            $data = array('access_status' => 1);
             $this->db->where('report_number', $this->input->post('report_number'));
             $res = $this->db->update('ta_cir', $data);
 
@@ -183,7 +183,7 @@ class Admin_model extends CI_Model
         $answer_question = $this->input->post('answer_question');
 
         for ($i = 0; $i < count($id_question); $i++) {
-            $data = ['adviser_answer' => $answer_question[$i]];
+            $data = array('adviser_answer' => $answer_question[$i]);
 
             $this->db->where('id_question', $id_question[$i]);
             $res = $this->db->update('ta_cir_address', $data);
@@ -191,9 +191,9 @@ class Admin_model extends CI_Model
 
         $report_number = $this->input->post('report_number');
 
-        $data = [
+        $data = array(
             'to_address' => 1,
-        ];
+        );
 
         $this->db->where('report_number', $report_number);
         $res = $this->db->update('ta_cir', $data);
@@ -228,7 +228,7 @@ class Admin_model extends CI_Model
 
         $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
 
-        $data = ['access_status' => 0];
+        $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));
         $res = $this->db->update('ta_cir', $data);
 
@@ -242,10 +242,10 @@ class Admin_model extends CI_Model
         $report_number = $this->input->post('report_number');
         $company_response = $this->input->post('company_response');
 
-        $data = [
+        $data = array(
             'rep_response' => $company_response,
             'link_password' => $link_password,
-        ];
+        );
 
         $this->db->where('report_number', $report_number);
         $res = $this->db->update('ta_cir', $data);
@@ -283,7 +283,7 @@ class Admin_model extends CI_Model
 
         $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
 
-        $data = ['access_status' => 0];
+        $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));
         $res = $this->db->update('ta_cir', $data);
 
@@ -296,11 +296,11 @@ class Admin_model extends CI_Model
         $adviser_response = $this->input->post('adviser_response');
         $adv_signature = $this->input->post('adv_signature');
 
-        $data = [
+        $data = array(
             'adv_response' => $adviser_response,
             'adv_signature' => $adv_signature,
             'adv_response_date' => date('Y-m-d'),
-        ];
+        );
 
         $this->db->where('report_number', $report_number);
         $res = $this->db->update('ta_cir', $data);
@@ -336,7 +336,7 @@ class Admin_model extends CI_Model
 
         $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
 
-        $data = ['access_status' => 0];
+        $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));
         $res = $this->db->update('ta_cir', $data);
 
@@ -352,7 +352,7 @@ class Admin_model extends CI_Model
         $finalisation = $this->input->post('finalisation');
         $signature = $this->input->post('signature');
 
-        $data = [
+        $data = array(
             'rep_action' => $action_response,
             'satisfactory' => $satisfactorily,
             'if_not' => $if_not,
@@ -360,7 +360,7 @@ class Admin_model extends CI_Model
             'rep_signature' => $signature,
             'rep_response_date' => date('Y-m-d'),
             'status' => 1,
-        ];
+        );
 
         $this->db->where('report_number', $report_number);
         $res = $this->db->update('ta_cir', $data);
@@ -387,7 +387,7 @@ class Admin_model extends CI_Model
         $password = $this->input->post('password');
 
         if ($this->bcrypt->check_password($password, $pass) && $email == $this->input->post('email')) {
-            $data = ['access_status' => 1];
+            $data = array('access_status' => 1);
             $this->db->where('report_number', $this->input->post('report_number'));
             $res = $this->db->update('ta_cir', $data);
 
