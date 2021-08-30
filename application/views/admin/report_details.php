@@ -104,10 +104,10 @@
                                    <label class="label-control" style="color:black; font-weight: bold;">Date Sent and Due</label>
                                </div>
                                <div class="col-md-3">
-                                   <label class="label-control">Sent: <?= $report_details_cir['send_date'] ?></label>
+                                   <label class="label-control">Sent: <?= date('d-m-Y', strtotime($report_details_cir['send_date'])) ?></label>
                                </div>
                                <div class="col-md-3">
-                                   <label class="label-control">Due: <?= $report_details_cir['due_date'] ?></label>
+                                   <label class="label-control">Due: <?= date('d-m-Y', strtotime($report_details_cir['due_date'])) ?></label>
                                </div>
                            </div>
                             <div class="row" style="padding: 1rem 1rem 0 1rem">
