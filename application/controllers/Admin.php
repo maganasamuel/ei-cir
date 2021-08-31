@@ -150,12 +150,19 @@ class Admin extends CI_Controller
             <footer>
               <div class="footer" style="font-size:6pt;">
                 <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
+                <div style="margin-left:520px; margin-top:-15px;" >
+                <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
+                        www.eliteinsure.co.nz
+                    </a>&nbsp;|&nbsp;Page
+                    {PAGENO}
+                </div>
               </div>
             </footer>';
 
         $mpdf = new \Mpdf\Mpdf();
         $cirtemplate = $this->load->view('admin/cirtemplate', $data, true);
         $mpdf->SetHTMLFooter($htmlFooter);
+        $mpdf->setFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($cirtemplate);
 
         $addresstemplate = $this->load->view('admin/addresstemplate', $data, true);

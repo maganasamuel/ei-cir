@@ -63,15 +63,20 @@
   <tr>
     <td width="150px">Adviser's Compliance History</td>
     <td>
-    	  <?php if($reportHistory){ ?>
-            <?php foreach($reportHistory as $rep){ ?>
-                <label>CH2021<?=  $rep['report_number'] ?></label>
+    	  <?php if($reportHistory){
+
+                 $history = "";?>
+            <?php foreach($reportHistory as $rep){
+                 $history .= 'CH2021' . $rep['report_number'] . ','
+              ?>
+               
             <?php } ?>
         <?php } ?> 
+       <label><?php echo rtrim($history,", ") ?></label>
     </td>
   </tr>
 </table>
-<p style="font-size: 18px; margin-top: 30px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issue Identified</p>
+<p style="font-size: 18px; margin-top: 30px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issues Identified</p>
  <?php if($report_details_identified){ $i = 0; ?>
         <?php foreach($report_details_identified as $rep){ $i++?>
                 <p style="margin-bottom: -40px; font-size: 14px; margin-top: 30px;"><?= $i . '. ' . $rep['issue_identified']?></p><br>

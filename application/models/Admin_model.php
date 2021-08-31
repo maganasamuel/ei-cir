@@ -273,7 +273,7 @@ class Admin_model extends CI_Model
         $bodyMessage = '
         Dear Eliteinsure Representative,
                 
-       In reference to Compliance Investigation Report no. CIR2021' . $textReportNum . ' being conducted of company representative, please click the link below to provide your response.  
+        In reference to Compliance Investigation Report no. CIR2021' . $textReportNum . ' being conducted you, please click the link below and provide your response.  
 
         ' . $link . '
 

@@ -71,15 +71,15 @@ img {
 
 <div class="row2" style="font-size: 13px; margin-bottom: 30px;">
   <div class="column2"> 
-  	<label>Reviewed the Information</label> <br><br>
-  	<label>Appropriate Adviser Action Taken</label> <br><br>
-  	<label>Customer’s Position Rectified</label><br><br>
-	<label>Add to Learning Points (Complaints or Business L/P)</label><br><br>
-	<label>Requested Additional Information</label><br><br>
-	<label>Finalised the Incident Report</label><br><br>
-	<label>Notified Insurer/FMA/Regulatory Body</label><br><br>
-	<label>Updated Complaint Register (Where Applicable)</label><br><br>
-	<label>Completed other Action</label><br><br>
+  	<label>Reviewed the Information</label> <br><br><br>
+  	<label>Appropriate Adviser Action Taken</label> <br><br><br>
+  	<label>Customer’s Position Rectified</label><br><br><br>
+	<label>Add to Learning Points (Complaints or Business L/P)</label><br><br><br>
+	<label>Requested Additional Information</label><br><br><br>
+	<label>Finalised the Incident Report</label><br><br><br>
+	<label>Notified Insurer/FMA/Regulatory Body</label><br><br><br>
+	<label>Updated Complaint Register (Where Applicable)</label><br><br><br>
+	<label>Completed other Action</label><br><br><br>
   </div>
   <div class="column2" id="chcbox">
 
@@ -108,7 +108,7 @@ img {
 
 	?>
 
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -135,7 +135,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -162,7 +162,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -189,7 +189,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -216,7 +216,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -243,7 +243,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -270,7 +270,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -297,7 +297,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;No<br><br>
+	</span>&nbsp;&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -324,16 +324,17 @@ img {
 
 	?>
 
-	</span>&nbsp;No
+	</span>&nbsp;&nbsp;No
 
 	
   </div>
-</div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <label>Finalised by: _______________________</label>
 <label>Signature:________________________</label>
 <label>Date:____________________</label>
 <div style="margin-top: -20px; margin-left: 520px;" ><?= date('d-m-Y', strtotime($report_details_cir['rep_response_date']))?></div>
 <img class="rep_signa" src="<?= $report_details_cir['rep_signature']?>">
+<div style="margin-top: -52px; margin-left: 350px;"><?= $comp_rep['name'] ?></div>
 </body>
 </html>
 	

@@ -42,7 +42,7 @@
 </div>
 <div style="margin-top: 310px;">&nbsp;</div>
 
-<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5">Company Representative Response</p>
+<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase;">Company Representative's Response</p>
 <p><?= $report_details_cir['rep_response']?></p>
 </body>
 </html>

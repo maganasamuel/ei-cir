@@ -80,7 +80,7 @@ in the review of my Contractual Agreement with Eliteinsure Limited</p><br><br>
 
 <div class="row"><br><br><br><br>
   <div class="column">
-  	<label>Signed: <span class="imgspan">________________________________<img class="signed" src="<?= $report_details_cir['adv_signature']?>"><span></label>
+  	<label>Signature: <span class="imgspan">________________________________<img class="signed" src="<?= $report_details_cir['adv_signature']?>"><span></label>
   </div>
   <div class="column">
     <label>Date: <span>______________________________<span ></span></label>
