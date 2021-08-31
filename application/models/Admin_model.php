@@ -570,4 +570,17 @@ class Admin_model extends CI_Model
             return 0;
         }
     }
+    public function delete_cir(){
+        $this->db->where('report_number', $this->input->post('report_number'));
+        $res = $this->db->delete('ta_cir');
+
+        $this->db->where('report_number', $this->input->post('report_number'));
+        $res = $this->db->delete('ta_cir_identified');
+
+        $this->db->where('report_number', $this->input->post('report_number'));
+        $res = $this->db->delete('ta_cir_address');
+
+        return 1;
+    }
+
 }

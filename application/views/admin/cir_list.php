@@ -92,8 +92,11 @@
                                                     <a href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>" class="btn icon-btn btn-sm btn-outline-primary" title="View CIR" >
                                                         <span class="feather icon-eye"></span>
                                                     </a>
-                                                    <a href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>&download=1" class="btn icon-btn btn-sm btn-outline-primary" title="Download CIR" >
+                                                    <a style="color:green;" href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>&download=1" class="btn icon-btn btn-sm btn-outline-primary" title="Download CIR" >
                                                         <span class="feather icon-download"></span>
+                                                    </a>
+                                                    <a style="color:red;" href="javascript:;" onclick="delete_cir(this)" id="<?=$cir['report_number'] ?>" class="btn icon-btn btn-sm btn-outline-primary" title="Delete Report" >
+                                                        <span class="feather icon-trash"></span>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -105,6 +108,8 @@
                                 </div>  
                             </div> 
                     </div>
+                    <input type="hidden" id="base_url" value="<?=base_url();?>">
+
                     <!-- [ content ] End -->
 
                     <!-- [ Layout footer ] Start -->
@@ -123,7 +128,36 @@
     <!-- Core scripts -->
     <?php $this->load->view('admin/common/js');?>
     <script src="<?=base_url();?>assets/admin/js/pages/forms_pickers.js"></script>
-   
+    <script type="text/javascript">
+        function delete_cir(id){
+            swal({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            },function(ret) {
+                if(ret == true){
+                 var base_url = $('#base_url').val();
+                        $.ajax({
+                                url: base_url+'Admin/delete_cir',
+                                type: 'POST',
+                                data: {
+                                    report_number:id.id
+                                },
+                                success: (res) => {
+                                   location.reload();
+                                }
+                            });
+                    }else{
+
+                    }
+                })
+
+        }
+    </script>
 </body>
 </html>
 

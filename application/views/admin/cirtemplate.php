@@ -63,16 +63,20 @@
   <tr>
     <td width="150px">Adviser's Compliance History</td>
     <td>
-    	  <?php if($reportHistory){
-
-                 $history = "";?>
+    	 <?php if($reportHistory){
+            $history = "";?>
             <?php foreach($reportHistory as $rep){
                  $history .= 'CH2021' . $rep['report_number'] . ','
               ?>
-               
             <?php } ?>
         <?php } ?> 
-       <label><?php echo rtrim($history,", ") ?></label>
+       <label><?php 
+      if($reportHistory){
+          echo rtrim($history,", ") ;   
+      }else{
+
+      }
+       ?></label>
     </td>
   </tr>
 </table>

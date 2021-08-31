@@ -219,12 +219,6 @@ class Admin extends CI_Controller
             <footer>
               <div class="footer" style="font-size:6pt;">
                 <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
-                <div style="margin-left:520px; margin-top:-15px;" >
-                <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
-                        www.eliteinsure.co.nz
-                    </a>&nbsp;|&nbsp;Page
-                    {PAGENO}
-                </div>
               </div>
             </footer>';
 
