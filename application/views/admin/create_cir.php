@@ -46,7 +46,7 @@
                                     <div class="card-body pb-2">
                                         
                                          <div class="form-group">
-                                            <label class="form-label-lg mb-2">Select Adviser</label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Select Adviser</label>
                                             <select id="adviser_id" class="select2-demo form-control select2-hidden-accessible" style="width: 100%" data-select2-id="31" tabindex="-1" aria-hidden="true" onchange="getHistory(this)">
                                             <?php if($adviser_list){ ?>
                                                 <?php foreach($adviser_list as $adv){ ?>
@@ -56,25 +56,25 @@
                                         </select>
                                         </div> 
                                         <div class="form-group">
-                                            <label class="form-label-lg mb-2">Report Number</label><br>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Report Number</label><br>
                                             <label class="form-label-lg" style="font-size: 15px">CIR2021<?=$report_number['report_number'] ?></label>
                                             <input type="hidden" id="report_number" class="form-control" value="CIR2021<?=$report_number['report_number'] ?>">
                                         </div> 
                                         <div class="form-group">
-                                            <label class="form-label-lg mb-2">Send Date</label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Send Date</label>
                                             <input type="text" id="b-m-dtp-date" class="form-control" placeholder="Sent Date" data-dtp="dtp_BUxli">
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label-lg mb-2">Due Date</label>
+                                            <label class="form-label-lg mb-2"style="font-weight: bold;" >Due Date</label>
                                             <input type="text" id="b-m-dtp-date2" class="form-control" placeholder="Due Date" data-dtp="dtp_BUxli">
                                         </div>
                                         <div class="form-group">
                                              <div class="row">
                                                    <div class="col-lg-12">
                                                     <div class="input-group input-group-md">
-                                                         <label class="form-label-lg mb-2">Issue Identified</label>
+                                                         <label class="form-label-lg mb-2" style="font-weight: bold;">Issue Identified</label>
                                                       <span class="input-group-btn">
-                                                        <a href="javascript:;" onclick="addIdentified()" title="Add issue Identified"><i class="feather icon-plus ml-2 " style="font-size: 17px; color:#00a323;"></i></a>
+                                                        <a href="javascript:;"  onclick="addIdentified()" title="Add issue Identified"><i class="feather icon-plus ml-2 " style="font-size: 19px; color:#00a323;"></i></a>
                                                       </span>
                                                     </div>
                                                   </div>
@@ -84,16 +84,16 @@
                                                 </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label-lg mb-2">Investigation Information</label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Investigation Information</label>
                                             <textarea class="form-control form-control-lg" placeholder="Investigation information" id="investigation_information" rows="10" cols="10"></textarea>
                                         </div>
                                         <div class="form-group">
                                                 <div class="row">
                                                    <div class="col-lg-12">
                                                     <div class="input-group input-group-md">
-                                                        <label class="form-label-lg mb-2">Issue to be address</label>
+                                                        <label class="form-label-lg mb-2" style="font-weight: bold;">Issue to be address</label>
                                                       <span class="input-group-btn">
-                                                        <a href="javascript:;" onclick="addIssueAddress()" title="Add question"><i class="feather icon-plus ml-2 " style="font-size: 17px; color:#00a323;"></i></a>
+                                                        <a href="javascript:;" onclick="addIssueAddress()" title="Add question"><i class="feather icon-plus ml-2 " style="font-size: 19px; color:#00a323;"></i></a>
                                                       </span>
                                                     </div>
                                                   </div>
@@ -103,7 +103,7 @@
                                                 </div>
                                         </div>
                                          <div class="form-group">
-                                            <label class="form-label-lg mb-2">Adviser Compliance History</label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Adviser Compliance History</label>
                                             <div class="history"></div>
                                         </div>
                                     </div>

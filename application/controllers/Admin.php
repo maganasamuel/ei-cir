@@ -284,7 +284,7 @@ class Admin extends CI_Controller
         $message->setFrom([$_ENV['MAIL_FROM_ADDRESS'] => $_ENV['MAIL_FROM_NAME']]);
         $message->setTo('allanaranda4@gmail.com');
 
-        $message->setBcc(array('allan@eliteinsure.co.nz' => 'Admin'));
+        $message->setBcc(array('executive.admin@eliteinsure.co.nz' => 'Admin'));
 
         $message->setBody('Please see attached file for CIR');
 

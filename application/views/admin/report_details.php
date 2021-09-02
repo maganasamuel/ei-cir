@@ -98,7 +98,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">Report Number</td>
-                                                <td>CIR20210020</td>
+                                                <td>CIR2021<?= $cir_max['report_number'] ?></td>
                                                 <input type="hidden" id="report_number" value="<?= $_GET['report_number'] ?>">
                                             </tr>
                                             <tr>
@@ -107,11 +107,19 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">Adviser Compliance History</td>
-                                                <td>    <?php if($reportHistory){ ?>
-                                        <?php foreach($reportHistory as $rep){ ?>
-                                    <label>CH2021<?=  $rep['report_number'] ?></label>
-                                      <?php } ?>
-                                  <?php } ?> </td>
+                                                <td><?php if($reportHistory){
+                                                        $history = "";?>
+                                                        <?php foreach($reportHistory as $rep){
+                                                            $history .= 'CH2021' . $rep['report_number'] . ', '
+                                                        ?>
+                                                        <?php } ?>
+                                                    <?php } ?> 
+                                                        <?php 
+                                                          if($reportHistory){
+                                                              echo rtrim($history,", ") ;   
+                                                          }
+                                                        ?>    
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -197,7 +205,7 @@
                                              <button type="submit" id="copResponseSave" class="btn btn-primary mt-3" onclick="copResponseSave()"><span class="far fa-paper-plane"></span>&nbsp;&nbsp;Submit</button>&nbsp;
                                             <?php } ?>
                                             <?php }else{ ?>
-                                            <p class="form-control-lg"><?= $report_details_cir['rep_response']?></p>
+                                            <label class="form-control-lg"><?= $report_details_cir['rep_response']?></label>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -232,7 +240,7 @@
                                         <button type="submit" class="btn btn-primary mt-3" id="saveContacted" onclick="saveContacted()"><span class="far fa-paper-plane"></span>&nbsp;&nbsp;Submit</button>&nbsp;
                                          <?php } ?>
                                          <?php }else{ ?>
-                                        <p class="lead ml-3"><?= $report_details_cir['adv_response']?></p>
+                                        <label class="form-control-lg"><?= $report_details_cir['adv_response']?></label>
                                         <?php } ?>
                                     </div>
                                 </div>
