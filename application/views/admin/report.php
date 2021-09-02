@@ -421,29 +421,7 @@ Company Representative? </label>
     <script src="<?=base_url();?>assets/admin/js/pages/pages_chat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
-    <style type="text/css">
-      .wrapper {
-        position: relative;
-        width: 400px;
-        height: 200px;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      .signature-pad {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width:400px;
-        height:200px;
-        background-color: white;
-      }
-    </style>
-
     <script type="text/javascript">
-
       var base_url = $('#base_url').val();
 
       <?php 
@@ -603,7 +581,7 @@ Company Representative? </label>
                                 text: "Your CIR is successfully completed and already sent to managing director. Thank You!",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0'; 
+                              //location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0'; 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");

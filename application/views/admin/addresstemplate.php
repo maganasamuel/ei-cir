@@ -45,7 +45,7 @@
 
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issues to be addressed by the Company Representative</p>
 
-<p style="font-size: 13px; margin-top: 10px;">Please note that depending on the answers provided Compliance may seek further clarifications 
+<p style="font-size: 13px; margin-top: 10px;">Please note that depending on the answers provided, Compliance may seek further clarifications 
 and further actions may be taken.</p><br>
  <?php if($report_details_address){ $i = 0; ?>
     <?php foreach($report_details_address as $rep){ $i++?>

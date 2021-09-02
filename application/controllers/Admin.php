@@ -134,6 +134,17 @@ class Admin extends CI_Controller
         echo json_encode($this->admin_model->getHistory());
     }
 
+    public function report(){
+        $data['report_details_cir'] = $this->admin_model->report_details();
+        $data['report_details_identified'] = $this->admin_model->report_details_identified();
+        $data['report_details_address'] = $this->admin_model->report_details_address();
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
+        $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
+        $data['cir_max'] = $this->admin_model->cir_max();
+
+         $this->load->view('admin/report',$data);
+    }
+
     public function Compliance_Report()
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
@@ -162,7 +173,6 @@ class Admin extends CI_Controller
         $mpdf = new \Mpdf\Mpdf();
         $cirtemplate = $this->load->view('admin/cirtemplate', $data, true);
         $mpdf->SetHTMLFooter($htmlFooter);
-        $mpdf->setFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($cirtemplate);
 
         $addresstemplate = $this->load->view('admin/addresstemplate', $data, true);
@@ -266,7 +276,7 @@ class Admin extends CI_Controller
 
         $content = $mpdf->Output('', 'S');
 
-        $attachment = (new Swift_Attachment($content, 'CIR REPORT', 'application/pdf'));
+        $attachment = (new Swift_Attachment($content, 'CIR', 'application/pdf'));
 
         $message = new Swift_Message();
         $message->setSubject('CIR');
@@ -274,7 +284,9 @@ class Admin extends CI_Controller
         $message->setFrom([$_ENV['MAIL_FROM_ADDRESS'] => $_ENV['MAIL_FROM_NAME']]);
         $message->setTo('allanaranda4@gmail.com');
 
-        $message->setBody('Please see attached file for CIR Report');
+        $message->setBcc(array('allan@eliteinsure.co.nz' => 'Admin'));
+
+        $message->setBody('Please see attached file for CIR');
 
         $message->attach($attachment);
 

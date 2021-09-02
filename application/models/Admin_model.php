@@ -90,17 +90,17 @@ class Admin_model extends CI_Model
         $link = base_url() . 'admin/provide_password?report_number=' . $uid . '&user_type=1';
 
         $bodyMessage = '
-        Hi adviser ' . $adviser_name . ',
-                
-        Please be informed that a Compliance Investigation Report is being lodged by Eliteinsure representative. We will need your cooperation to complete the investigation. 
+Hi adviser ' . $adviser_name . ',
 
-        Kindly click the link below to answer questions from the company representative: 
+Please be informed that a Compliance Investigation Report is being lodged by Eliteinsure representative. We will need your cooperation to complete the investigation. 
 
-        ' . $link . '
+Kindly click the link below to answer questions from the company representative: 
 
-        Link Password: ' . $link_password . '
+' . $link . '
 
-        Eliteinsure Admin Team';
+Link Password: ' . $link_password . '
+
+Eliteinsure Admin Team';
 
         $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
 
@@ -218,13 +218,13 @@ class Admin_model extends CI_Model
         $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0';
 
         $bodyMessage = '
-        Dear Eliteinsure Representative,
-                
-        Adviser subject to Report Number CIR2021' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
+Dear Eliteinsure Representative,
+    
+Adviser subject to Report Number CIR2021' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
 
-        ' . $link . '
+' . $link . '
 
-        Eliteinsure Admin Team';
+Eliteinsure Admin Team';
 
         $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
 
@@ -271,15 +271,15 @@ class Admin_model extends CI_Model
         $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=1';
 
         $bodyMessage = '
-        Dear Eliteinsure Representative,
-                
-        In reference to Compliance Investigation Report no. CIR2021' . $textReportNum . ' being conducted you, please click the link below and provide your response.  
+Dear Eliteinsure Representative,
+        
+In reference to Compliance Investigation Report no. CIR2021' . $textReportNum . ' being conducted you, please click the link below and provide your response.  
 
-        ' . $link . '
+' . $link . '
 
-        Link Password: ' . $link_password . '
+Link Password: ' . $link_password . '
 
-        Eliteinsure Admin Team';
+Eliteinsure Admin Team';
 
         $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
 
@@ -326,15 +326,15 @@ class Admin_model extends CI_Model
         $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0';
 
         $bodyMessage = '
-        Dear Eliteinsure Representative,
-                
-        Adviser subject to Report Number CIR2021' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
+Dear Eliteinsure Representative,
+    
+Adviser subject to Report Number CIR2021' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
 
-        ' . $link . '
+' . $link . '
 
-        Eliteinsure Admin Team';
+Eliteinsure Admin Team';
 
-        $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
+       $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
 
         $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));

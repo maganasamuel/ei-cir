@@ -334,7 +334,7 @@ img {
 <label>Date:____________________</label>
 <div style="margin-top: -20px; margin-left: 520px;" ><?= date('d-m-Y', strtotime($report_details_cir['rep_response_date']))?></div>
 <img class="rep_signa" src="<?= $report_details_cir['rep_signature']?>">
-<div style="margin-top: -52px; margin-left: 350px;"><?= $comp_rep['name'] ?></div>
+<div style="margin-top: -52px; margin-left: 320px;"><?= $comp_rep['name'] ?></div>
 </body>
 </html>
 	
