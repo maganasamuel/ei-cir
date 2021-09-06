@@ -109,7 +109,7 @@
                                                 <td style="font-weight: bold;">Adviser Compliance History</td>
                                                 <td>    <?php if($reportHistory){ ?>
                                         <?php foreach($reportHistory as $rep){ ?>
-                                    <label>CH2021<?=  $rep['report_number'] ?></label>
+                                    <label>CIR2021<?=  $rep['report_number'] ?></label>
                                       <?php } ?>
                                   <?php } ?> </td>
                                             </tr>

@@ -110,7 +110,7 @@
                                                 <td><?php if($reportHistory){
                                                         $history = "";?>
                                                         <?php foreach($reportHistory as $rep){
-                                                            $history .= 'CH2021' . $rep['report_number'] . ', '
+                                                            $history .= 'CIR2021' . $rep['report_number'] . ', '
                                                         ?>
                                                         <?php } ?>
                                                     <?php } ?> 
@@ -178,7 +178,7 @@
                                             <label class="form-control-lg"><?= $i . '. ' . $rep['issue_address']?></label><br>
                                             <?php if($report_details_cir['to_address'] == 0){ ?>
                                                 <input type="hidden" class="form-control form-control-lg" name="id_question[]" value="<?= $rep['id_question'] ?>" placeholder="Please enter your answer">
-                                                <input type="text" class="form-control form-control-lg" name="answer_question[]" placeholder="Please enter your answer">
+                                                <input type="text" class="form-control form-control-lg" name="answer_question[]" placeholder="For adviser to complete">
                                                 <?php }else{ ?>
                                                 <label class="ml-4 form-control-lg"><?= $rep['adviser_answer']?></label><br>
                                                 <?php } ?>
@@ -201,7 +201,7 @@
                                     <div class="card-body">
                                         <?php if($report_details_cir['rep_response'] == ""){ ?>
                                         <?php if($_GET['user_type'] == 0){ ?>
-                                            <textarea class="form-control form-control-lg" placeholder="Please enter your reponse" rows="5" cols="15" id="company_response"></textarea>
+                                            <textarea class="form-control form-control-lg" placeholder="For company representative to complete" rows="5" cols="15" id="company_response"></textarea>
                                              <button type="submit" id="copResponseSave" class="btn btn-primary mt-3" onclick="copResponseSave()"><span class="far fa-paper-plane"></span>&nbsp;&nbsp;Submit</button>&nbsp;
                                             <?php } ?>
                                             <?php }else{ ?>
@@ -225,7 +225,7 @@
                                     <div class="card-body">
                                         <?php if($report_details_cir['adv_response'] == ""){ ?>
                                         <?php if($_GET['user_type'] == 1){ ?>
-                                         <textarea class="form-control-lg form-control" placeholder="Please enter your response" id="adviser_response" rows="5" cols="15"></textarea>
+                                         <textarea class="form-control-lg form-control" placeholder="For adviser to complete" id="adviser_response" rows="5" cols="15"></textarea>
                                          <div class="row">
                                             <div class="col-3 mt-2">
                                                 <div class="wrapper">
@@ -259,7 +259,7 @@
                                 <div class="bg-white ui-bordered mb-2"  <?= (empty($report_details_cir['rep_action'])) ? 'style="border: 1px solid #f7ada8;"' : '' ?>>   
                                     <div class="card-body">
                                         <?php if($report_details_cir['rep_action'] == ""){ ?>
-                                            <textarea class="form-control form-control-lg" id="action_response" placeholder="Please enter your response" rows="5" cols="15"></textarea>
+                                            <textarea class="form-control form-control-lg" id="action_response" placeholder="For company representative to complete" rows="5" cols="15"></textarea>
                                             <label class="label-control">Has the CIR been completed satisfactorily?</label>
                                             <select class="form-select mt-2" id="satisfactorily" onchange="getval(this);">
                                               <option value="1">Yes</option>

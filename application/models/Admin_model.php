@@ -15,6 +15,35 @@ class Admin_model extends CI_Model
         $dotenv->load();
     }
 
+    public function report_history(){
+        
+        $adviser_id = $_GET['adviser_id'];
+        $date_from = $_GET['date_from'];
+        $date_to = $_GET['date_to'];
+
+        $this->db->select('*,lpad(a.report_number,4,"0") as report_numbers,a.status as cir_status')->from('ta_cir a');
+        $this->db->join('advisers b', 'b.id = a.adviser_id', 'left');
+
+        if (!str_contains($adviser_id, 'all')) {
+            $this->db->where('adviser_id in ('.$adviser_id.')');   
+        }
+
+        $this->db->where('b.name !=', "");
+        $this->db->where('a.status', $_GET['status']);
+        $this->db->where("date_created BETWEEN '$date_from' AND '$date_to'");
+
+        //print_r($this->db);
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return 0;
+        }      
+    }
+
+   
+
     public function adviser_list()
     {
         $this->db->select('*')->from('advisers');
@@ -102,7 +131,7 @@ Link Password: ' . $link_password . '
 
 Eliteinsure Admin Team';
 
-        $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
+        //$this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
 
         return 1;
     }
@@ -469,6 +498,7 @@ Eliteinsure Admin Team';
         $this->db->select('lpad(report_number,4,"0") as report_number')->from('ta_cir');
         $this->db->where('adviser_id', $adviser_id);
         $this->db->where('report_number !=', $_GET['report_number']);
+        
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {

@@ -47,13 +47,13 @@
                                         
                                          <div class="form-group">
                                             <label class="form-label-lg mb-2" style="font-weight: bold;">Select Adviser</label>
-                                            <select id="adviser_id" class="select2-demo form-control select2-hidden-accessible" style="width: 100%" data-select2-id="31" tabindex="-1" aria-hidden="true" onchange="getHistory(this)">
-                                            <?php if($adviser_list){ ?>
-                                                <?php foreach($adviser_list as $adv){ ?>
-                                                     <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
-                                            <?php } ?>
-                                        <?php } ?>   
-                                        </select>
+                                            <select id="adviser_id" class="js-select" style="width: 100%" onchange="getHistory(this)">
+                                                <?php if($adviser_list){ ?>
+                                                    <?php foreach($adviser_list as $adv){ ?>
+                                                        <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
+                                                    <?php } ?>
+                                                <?php } ?>   
+                                            </select>
                                         </div> 
                                         <div class="form-group">
                                             <label class="form-label-lg mb-2" style="font-weight: bold;">Report Number</label><br>
@@ -189,6 +189,14 @@
                     }
                });
             }
+
+            $(document).ready(function() {
+           
+                 $('.js-select').append('<option selected></option>').select2({
+                        placeholder: "Select Adviser",
+                        allowClear: true
+                    });
+            });
 
             function getHistory(id){
                 $.ajax({

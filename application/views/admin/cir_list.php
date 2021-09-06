@@ -44,10 +44,13 @@
                                     <div class="card-header card-header-flex">
                                         <div>
                                             <div class="flex-right-button">
-                                                <a href="<?=base_url();?>admin/create_cir?token=<?= $access_token ?>" class="btn btn-info btn-sm"><i class="ion ion-ios-add-circle text-white"></i> Create CIR</a>
+                                                <a href="<?=base_url();?>admin/create_cir?token=<?= $access_token ?>" class="btn btn-success btn-md"><i class="ion ion-ios-add-circle text-white"></i> Create CIR</a>
+
+                                                <a data-toggle="modal" data-target="#modals-top" href="javascript:;" class="btn btn-info btn-md waves-effect"><i class="ion ion-md-archive text-white"></i> Generate Report</a>
                                             </div>
                                         </div>
                                     </div> 
+                                    <input type="hidden" id="token" value="<?= $access_token ?>">
                                     <div class="card-datatable table-responsive">
                                         <table class="datatables-demo table table-striped table-bordered">
                                             <thead>
@@ -66,7 +69,7 @@
                                             <?php foreach($cir_list as $cir){ ?>
                                             <tr>
                                                 <td>
-                                                    CH20201<?=$cir['report_number'] ?> 
+                                                    CIR2021<?=$cir['report_number'] ?> 
                                                 </td>
                                                 <td>
                                                     <?=$cir['adv_name'] ?> 
@@ -81,7 +84,7 @@
                                                     <?= date('d-m-Y', strtotime($cir['due_date'])) ?> 
                                                 </td>
                                                 <td>
-                                                     <?php if($cir['status'] == 0){ ?>
+                                                    <?php if($cir['status'] == 0){ ?>
                                                     <span class="badge badge-warning ml-1">Not Completed</span>
                                                     <?php } else { ?>
                                                     <span class="badge badge-success ml-1">Completed</span>
@@ -125,6 +128,63 @@
     </div>
     <!-- [ Layout wrapper ] end -->
 
+
+<div class="modal modal-top fade" id="modals-top" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Generate Report</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label class="form-label">Select Adviser</label>
+                        <select id="adviser_id" class="select2-demo form-control select2-hidden-accessible" style="width: 100%" data-select2-id="31" tabindex="-1" aria-hidden="true" multiple="multiple" name="adviser_list[]">
+                            <option value="all">ALL</option>
+                            <?php if($adviser_list){ ?>
+                                <?php foreach($adviser_list as $adv){ ?>
+                                    <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
+                                <?php } ?>
+                            <?php } ?>   
+                        </select>
+                        <span class="required" style="color:red; font-size: 10px; display: none; font-style: italic;">This field is required</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="form-group col mb-0">
+                        <label class="form-label">CIR Status</label>
+                        <select id="status" class="select2-demo form-control select2-hidden-accessible" style="width: 100%">
+                            <option value="1">Completed</option>
+                            <option value="0">Not Completed</option>                            
+                        </select>
+                        <div class="clearfix"></div>
+                    </div>
+                </div><br>
+                <div class="form-row">
+                    <div class="form-group col mb-0">
+                        <label class="form-label">Date From</label>
+                        <input type="text" id="b-m-dtp-date" class="form-control date-from" placeholder="From" data-dtp="dtp_BUxli">
+                        <span class="required" style="color:red; font-size: 10px; display: none; font-style: italic;">This field is required</span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="form-group col mb-0">
+                        <label class="form-label">Date To</label>
+                        <input type="text" id="b-m-dtp-date2" class="form-control date-to" placeholder="To" data-dtp="dtp_BUxli">
+                        <span class="required" style="color:red; font-size: 10px; display: none; font-style: italic;">This field is required</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="generate()">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <!-- Core scripts -->
     <?php $this->load->view('admin/common/js');?>
     <script src="<?=base_url();?>assets/admin/js/pages/forms_pickers.js"></script>
@@ -156,6 +216,24 @@
                     }
                 })
 
+        }
+
+        function generate(){
+            var base_url = $('#base_url').val();
+            var token = $("#token").val();
+            $("#adviser_id").attr("style","0px solid rgba(24, 28, 33, 0.1)");
+            $(".date-to").attr("style","0px solid rgba(24, 28, 33, 0.1)");
+            $(".date-from").attr("style","0px solid rgba(24, 28, 33, 0.1)");
+            if($("#adviser_id").val() === null){
+                $("#adviser_id").attr("style","border-bottom:1px solid #ff6b81;")
+            }else if(  $(".date-from").val() === ""){
+                $(".date-from").attr("style","border-bottom:1px solid #ff6b81;")
+            }else if(  $(".date-to").val() === ""){
+                $(".date-to").attr("style","border-bottom:1px solid #ff6b81;")
+            }else{
+                 window.open(base_url+'Admin/report_history?token='+token+'&adviser_id='+$("#adviser_id").val()+'&date_from='+$(".date-from").val()+'&date_to='+$(".date-to").val()+'&status='+$("#status").val(), "_newtab");    
+            }
+            
         }
     </script>
 </body>

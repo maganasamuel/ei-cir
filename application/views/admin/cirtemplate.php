@@ -30,7 +30,7 @@
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -66,7 +66,7 @@
     	 <?php if($reportHistory){
             $history = "";?>
             <?php foreach($reportHistory as $rep){
-                 $history .= 'CH2021' . $rep['report_number'] . ','
+                 $history .= 'CIR2021' . $rep['report_number'] . ','
               ?>
             <?php } ?>
         <?php } ?> 

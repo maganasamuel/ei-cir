@@ -23,7 +23,7 @@ img {
 }
 
 .rep_signa{
-	margin-top: -118px;
+	margin-top: -108px;
 	margin-left: 325px;
 	height: 150px;
 	width: 150px;
@@ -55,7 +55,7 @@ img {
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -94,7 +94,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -108,7 +108,7 @@ img {
 
 	?>
 
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -121,7 +121,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -135,7 +135,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -148,7 +148,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -162,7 +162,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -175,7 +175,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -189,7 +189,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -202,7 +202,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -216,7 +216,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -229,7 +229,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -243,7 +243,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -256,7 +256,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -270,7 +270,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -283,7 +283,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -297,7 +297,7 @@ img {
 
 	?>
 	
-	</span>&nbsp;&nbsp;No<br><br><br>
+	</span>&nbsp;No<br><br><br>
 
 	<span style="border: 1px solid black;">
 
@@ -310,7 +310,7 @@ img {
 	}
 
 	?>
-	</span>&nbsp;Yes
+	</span>&nbsp;Yes&nbsp;&nbsp;
 	
 	<span style="border: 1px solid black;">
 	
@@ -324,7 +324,7 @@ img {
 
 	?>
 
-	</span>&nbsp;&nbsp;No
+	</span>&nbsp;No
 
 	
   </div>
@@ -334,7 +334,7 @@ img {
 <label>Date:____________________</label>
 <div style="margin-top: -20px; margin-left: 520px;" ><?= date('d-m-Y', strtotime($report_details_cir['rep_response_date']))?></div>
 <img class="rep_signa" src="<?= $report_details_cir['rep_signature']?>">
-<div style="margin-top: -52px; margin-left: 320px;"><?= $comp_rep['name'] ?></div>
+<div style="margin-top: -62px; margin-left: 90px;"><?= $comp_rep['name'] ?></div>
 </body>
 </html>
 	

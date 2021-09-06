@@ -58,6 +58,7 @@ class Admin extends CI_Controller
 
             if (1 == $token) {
                 $data['cir_list'] = $this->admin_model->cir_list($_GET['token']);
+                $data['adviser_list'] = $this->admin_model->adviser_list();
                 $data['access_token'] = $_GET['token'];
                 $this->load->view('admin/cir_list', $data);
             } else {
@@ -66,6 +67,33 @@ class Admin extends CI_Controller
         } else {
             $this->load->view('admin/access_denied');
         }
+    }
+
+    public function report_history(){
+        $data['report'] = $this->admin_model->report_history();
+        $data['user'] = $this->admin_model->getUserID($_GET['token']);
+
+       // $print_r($data);
+       // // print_r($data['report'][1]['name']);
+
+          $htmlFooter = '
+            <footer>
+              <div class="footer" style="font-size:6pt;">
+                <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
+                <div style="margin-left:520px; margin-top:-15px;" >
+                <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
+                        www.eliteinsure.co.nz
+                    </a>&nbsp;|&nbsp;Page
+                    {PAGENO}
+                </div>
+              </div>
+            </footer>';
+
+        $mpdf = new \Mpdf\Mpdf();
+        $report = $this->load->view('admin/report_history', $data, true);
+        $mpdf->SetHTMLFooter($htmlFooter);
+        $mpdf->WriteHTML($report);
+        $mpdf->Output();
     }
 
     public function report_details()
@@ -160,7 +188,7 @@ class Admin extends CI_Controller
         $htmlFooter = '
             <footer>
               <div class="footer" style="font-size:6pt;">
-                <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
+                <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
                 <div style="margin-left:520px; margin-top:-15px;" >
                 <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
                         www.eliteinsure.co.nz
@@ -228,7 +256,7 @@ class Admin extends CI_Controller
            $htmlFooter = '
             <footer>
               <div class="footer" style="font-size:6pt;">
-                <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
+                <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
                 <div style="margin-left:520px; margin-top:-15px;" >
                 <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
                         www.eliteinsure.co.nz

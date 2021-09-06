@@ -30,7 +30,7 @@
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -50,7 +50,7 @@ and further actions may be taken.</p><br>
  <?php if($report_details_address){ $i = 0; ?>
     <?php foreach($report_details_address as $rep){ $i++?>
         <p style="font-size: 14px;"><?= $i . '. ' . $rep['issue_address']?></p>
-        <p style="font-size: 14px; margin-left: 20px; color:#1881c7 ">- <?= $rep['adviser_answer']?></p>
+        <p style="font-size: 14px; color:#1881c7 "><?= $rep['adviser_answer']?></p>
   <?php } ?>
 <?php } ?> 
 </body>
