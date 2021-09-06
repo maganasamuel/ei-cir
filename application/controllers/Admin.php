@@ -234,9 +234,11 @@ class Admin extends CI_Controller
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($final);
 
+
         if (1 == $_GET['download']) {
             $mpdf->Output('', 'D');
         } else {
+             $mpdf->SetHTMLFooter($htmlFooter);
             $mpdf->Output();
         }
     }

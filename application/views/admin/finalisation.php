@@ -33,6 +33,7 @@ img {
   	float: left;
 	width: 47%;
 	padding: 10px;
+	margin-left: -9px;
 }
 
 .row2:after {
@@ -41,7 +42,7 @@ img {
   clear: both;
 }
 #chcbox{
-
+	margin-left: 220px;
 	text-align: center;
 }
 
@@ -69,7 +70,7 @@ img {
 
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5;text-transform: uppercase">Finalisation</p>
 
-<div class="row2" style="font-size: 13px; margin-bottom: 30px;">
+<div class="row2" style=" font-size: 13px; margin-bottom: 30px;">
   <div class="column2"> 
   	<label>Reviewed the Information</label> <br><br><br>
   	<label>Appropriate Adviser Action Taken</label> <br><br><br>

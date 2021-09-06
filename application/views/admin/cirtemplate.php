@@ -20,6 +20,10 @@
 		}
 		pre {font-family: Trebuchet MS, sans-serif
 		}
+    @page{
+      margin-left: 50px;
+      margin-right: 50px;
+    }
 	</style>
 </head>
 <body style="font-family: Trebuchet MS, sans-serif	">

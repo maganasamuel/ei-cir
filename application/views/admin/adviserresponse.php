@@ -72,7 +72,7 @@ img {
 <div style="margin-top: 310px;">&nbsp;</div>
 
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Contracted Adivser's Response</p>
-<p><?= $report_details_cir['adv_response']?></p><br><br><br>
+<label style="text-align: center;"><?= $report_details_cir['adv_response']?></label><br><br><br>
 <p>DECLARATION: I declare that the information on this report is a true representation to the 
 best of my recollection of the facts or events in relation to the matter being investigated. I 
 understand that providing incorrect or incomplete information on this document could result 

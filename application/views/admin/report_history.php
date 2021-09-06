@@ -52,19 +52,22 @@
 <table id="first" style="position: absolute; margin-top: 100px">
   <tr>
     <?php if($_GET['adviser_id'] != "all"){ ?>
-        <td width="250px">Adviser Name</td>
+        <td width="250px">Advsiser Name</td>
     <?php }else{ ?> 
-        <td width="250px">Advisers Name</td>
+        <td width="250px">Eliteinsure Advisers</td>
     <?php } ?>
 
     <td><?php
             $history = "";
-            if($report){
+            $listName = array();
+            if($report){  
                 for($i = 0; $i < count($report); $i++){
-                    $history .= $report[$i]['name'] . ',';
+                      array_push($listName,$report[$i]['name']);
                 }
             }
-            echo rtrim($history, ',');
+            $duplicate = array_unique($listName);
+            echo implode(",", $duplicate);
+            // echo rtrim($history, ',');
      ?></td>
   </tr>
   <tr style="background-color: #dddddd;">
@@ -89,7 +92,7 @@
     <?php } ?>
     <td width="250px">Period Covered</td>
     <td>
-        From: <?= $_GET['date_from']  ?> <span style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To: <?= $_GET['date_to'] ?></span>
+        From: <?= date('d-m-Y', strtotime($_GET['date_from'])) ?> <span style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To: <?= date('d-m-Y', strtotime($_GET['date_to'])) ?></span>
     </td>
   </tr>
 </table>
@@ -135,8 +138,8 @@
             <tr>
                 <td>CIR2021<?=$rep['report_numbers']?></td>  
                 <td><?=$rep['name']?></td>
-                <td><?=$rep['send_date']?></td>   
-                <td><?=$rep['due_date']?></td>
+                <td><?= date('d-m-Y', strtotime($rep['send_date']))?></td>   
+                <td><?= date('d-m-Y', strtotime($rep['due_date'])) ?></td>
                 <td>
                     <?php if($rep['cir_status'] == 0){ ?>
                        Not Completed

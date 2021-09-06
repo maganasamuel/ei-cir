@@ -100,7 +100,7 @@ img {
 
 <p>If not, what outstanding action/s is required by Eliteinsure Ltd. to be followed up with the 
 Company Representative? </p>
-<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $report_details_cir['if_not']?></label>
+<label><?= $report_details_cir['if_not']?></label>
 
 
 </body>
