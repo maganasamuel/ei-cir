@@ -75,10 +75,9 @@ img {
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Company Representative's Response</p>
 <div class="response">
 <p><?= $report_details_cir['rep_action']?></p><br><br><br>
-</div>
 <p>DECLARATION: I declare that the information on this report is a true representation of the 
 facts or events as investigated by me.</p><br><br>
-
+</div>
 <div class="row"><br><br><br><br>
   <div class="column">
   	<label>Signature: <span class="imgspan">________________________________<img class="rep_signa_ac" src="<?= $report_details_cir['rep_signature']?>"><span></label>

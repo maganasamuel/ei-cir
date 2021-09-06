@@ -329,7 +329,10 @@ img {
 
 	
   </div>
-</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div><br><br><br>
+<div class="response">
+<p>DECLARATION: Disclaimer: Eliteinsure has used reasonable endeavours to ensure the accuracy and completeness of the information provided but makes no warranties as to the accuracy or completeness of such information. The information should not be taken as advice. Eliteinsure accepts no responsibility for the results of any omissions or actions taken on basis of this information. This report includes commercially sensitive information. Accordingly, it may be used for the purpose provided; may not be disclosed to any third party; and will be subject to any obligation of confidence owed by the recipient under contract or otherwise.</p><br><br>
+</div>
 <label>Finalised by: _______________________</label>
 <label>Signature:________________________</label>
 <label>Date:____________________</label>
