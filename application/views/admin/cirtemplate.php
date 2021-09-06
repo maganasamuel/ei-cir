@@ -24,6 +24,10 @@
       margin-left: 50px;
       margin-right: 50px;
     }
+    .response{
+    text-align: justify;
+    text-justify: inter-word;
+  }
 	</style>
 </head>
 <body style="font-family: Trebuchet MS, sans-serif	">
@@ -91,7 +95,9 @@
         <?php } ?>
 <?php } ?> 
 <p style="font-size: 18px; margin-top: 70px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Investigation Information</p>
+<div class="response">
 <pre style="margin-bottom: -40px; font-size: 14px;margin-top: 30px;"><?= $report_details_cir['investigation_information'] ?></pre><br>
+</div>
 </body>
 </html>
 	
