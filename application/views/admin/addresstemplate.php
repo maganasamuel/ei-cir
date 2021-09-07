@@ -50,7 +50,9 @@ and further actions may be taken.</p><br>
  <?php if($report_details_address){ $i = 0; ?>
     <?php foreach($report_details_address as $rep){ $i++?>
         <p style="font-size: 14px;"><?= $i . '. ' . $rep['issue_address']?></p>
+        <div class="response">
         <p style="font-size: 14px; color:#1881c7 "><?= $rep['adviser_answer']?></p>
+    	</div>
   <?php } ?>
 <?php } ?> 
 </body>

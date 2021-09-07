@@ -98,8 +98,10 @@ img {
 	
 	</span>&nbsp;No<br><br>
 
+<div class="response">
 <p>If not, what outstanding action/s is required by Eliteinsure Ltd. to be followed up with the 
 Company Representative? </p>
+</div>
 <div class="response">
 <label><?= $report_details_cir['if_not']?></label>
 </div>
