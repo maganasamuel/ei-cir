@@ -156,6 +156,7 @@
                     <div class="form-group col mb-0">
                         <label class="form-label">CIR Status</label>
                         <select id="status" class="select2-demo form-control select2-hidden-accessible" style="width: 100%">
+                            <option value="all">ALL</option>
                             <option value="1">Completed</option>
                             <option value="0">Not Completed</option>                            
                         </select>

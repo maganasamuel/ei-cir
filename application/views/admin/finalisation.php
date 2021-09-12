@@ -329,7 +329,7 @@ img {
 
 	
   </div>
-</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div><br><br><br><br><br><br><br><br><br><br><br><br><br>	
 <label>Finalised by: _______________________</label>
 <label>Signature:________________________</label>
 <label>Date:____________________</label>
