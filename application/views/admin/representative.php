@@ -30,7 +30,7 @@
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -42,8 +42,10 @@
 </div>
 <div style="margin-top: 310px;">&nbsp;</div>
 
-<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5">Company Representative Response</p>
+<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase;">Company Representative's Response</p>
+<div class="response">
 <p><?= $report_details_cir['rep_response']?></p>
+</div>
 </body>
 </html>
 	

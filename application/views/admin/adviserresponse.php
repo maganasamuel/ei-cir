@@ -42,13 +42,16 @@ img {
 }
 
 .signed{
-	margin-top: -70px;
+	margin-top: -120px;
 	background-color: none;
 	boder: 1px solid black;
 	margin-left: 80px;
 }
-
-
+	
+	.response{
+		text-align: justify;
+ 	 	text-justify: inter-word;
+	}
 
 	</style>
 </head>
@@ -59,7 +62,7 @@ img {
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -72,15 +75,18 @@ img {
 <div style="margin-top: 310px;">&nbsp;</div>
 
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Contracted Adivser's Response</p>
-<p><?= $report_details_cir['adv_response']?></p><br><br><br>
+
+<div class="response">
+<label style="text-align: center;"><?= $report_details_cir['adv_response']?></label><br><br><br>
+
 <p>DECLARATION: I declare that the information on this report is a true representation to the 
 best of my recollection of the facts or events in relation to the matter being investigated. I 
 understand that providing incorrect or incomplete information on this document could result 
 in the review of my Contractual Agreement with Eliteinsure Limited</p><br><br>
-
+</div>
 <div class="row"><br><br><br><br>
   <div class="column">
-  	<label>Signed: <span class="imgspan">________________________________<img class="signed" src="<?= $report_details_cir['adv_signature']?>"><span></label>
+  	<label>Signature: <span class="imgspan">________________________________<img class="signed" src="<?= $report_details_cir['adv_signature']?>"><span></label>
   </div>
   <div class="column">
     <label>Date: <span>______________________________<span ></span></label>

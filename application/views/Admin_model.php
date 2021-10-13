@@ -20,7 +20,6 @@ class Admin_model extends CI_Model
         $adviser_id = $_GET['adviser_id'];
         $date_from = $_GET['date_from'];
         $date_to = $_GET['date_to'];
-        $status = $_GET['status'];
 
         $this->db->select('*,lpad(a.report_number,4,"0") as report_numbers,a.status as cir_status')->from('ta_cir a');
         $this->db->join('advisers b', 'b.id = a.adviser_id', 'left');
@@ -29,12 +28,8 @@ class Admin_model extends CI_Model
             $this->db->where('adviser_id in ('.$adviser_id.')');   
         }
 
-        if (!str_contains($status, 'all')) {
-            $this->db->where('a.status', $_GET['status']);  
-        }
-
-
         $this->db->where('b.name !=', "");
+        $this->db->where('a.status', $_GET['status']);
         $this->db->where("date_created BETWEEN '$date_from' AND '$date_to'");
 
         //print_r($this->db);
@@ -136,7 +131,7 @@ Link Password: ' . $link_password . '
 
 Eliteinsure Admin Team';
 
-        $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
+        //$this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
 
         return 1;
     }

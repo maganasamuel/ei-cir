@@ -98,7 +98,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">Report Number</td>
-                                                <td>CIR2021<?= $cir_max['report_number'] ?></td>
+                                                <td>CIR20210020</td>
                                                 <input type="hidden" id="report_number" value="<?= $_GET['report_number'] ?>">
                                             </tr>
                                             <tr>
@@ -107,19 +107,11 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">Adviser Compliance History</td>
-                                                <td><?php if($reportHistory){
-                                                        $history = "";?>
-                                                        <?php foreach($reportHistory as $rep){
-                                                            $history .= 'CIR2021' . $rep['report_number'] . ', '
-                                                        ?>
-                                                        <?php } ?>
-                                                    <?php } ?> 
-                                                        <?php 
-                                                          if($reportHistory){
-                                                              echo rtrim($history,", ") ;   
-                                                          }
-                                                        ?>    
-                                                </td>
+                                                <td>    <?php if($reportHistory){ ?>
+                                        <?php foreach($reportHistory as $rep){ ?>
+                                    <label>CIR2021<?=  $rep['report_number'] ?></label>
+                                      <?php } ?>
+                                  <?php } ?> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -178,7 +170,7 @@
                                             <label class="form-control-lg"><?= $i . '. ' . $rep['issue_address']?></label><br>
                                             <?php if($report_details_cir['to_address'] == 0){ ?>
                                                 <input type="hidden" class="form-control form-control-lg" name="id_question[]" value="<?= $rep['id_question'] ?>" placeholder="Please enter your answer">
-                                                <input type="text" class="form-control form-control-lg" name="answer_question[]" placeholder="For adviser to complete">
+                                                <input type="text" class="form-control form-control-lg" name="answer_question[]" placeholder="Please enter your answer">
                                                 <?php }else{ ?>
                                                 <label class="ml-4 form-control-lg"><?= $rep['adviser_answer']?></label><br>
                                                 <?php } ?>
@@ -201,11 +193,11 @@
                                     <div class="card-body">
                                         <?php if($report_details_cir['rep_response'] == ""){ ?>
                                         <?php if($_GET['user_type'] == 0){ ?>
-                                            <textarea class="form-control form-control-lg" placeholder="For company representative to complete" rows="5" cols="15" id="company_response"></textarea>
+                                            <textarea class="form-control form-control-lg" placeholder="Please enter your reponse" rows="5" cols="15" id="company_response"></textarea>
                                              <button type="submit" id="copResponseSave" class="btn btn-primary mt-3" onclick="copResponseSave()"><span class="far fa-paper-plane"></span>&nbsp;&nbsp;Submit</button>&nbsp;
                                             <?php } ?>
                                             <?php }else{ ?>
-                                            <label class="form-control-lg"><?= $report_details_cir['rep_response']?></label>
+                                            <p class="form-control-lg"><?= $report_details_cir['rep_response']?></p>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -225,7 +217,7 @@
                                     <div class="card-body">
                                         <?php if($report_details_cir['adv_response'] == ""){ ?>
                                         <?php if($_GET['user_type'] == 1){ ?>
-                                         <textarea class="form-control-lg form-control" placeholder="For adviser to complete" id="adviser_response" rows="5" cols="15"></textarea>
+                                         <textarea class="form-control-lg form-control" placeholder="Please enter your response" id="adviser_response" rows="5" cols="15"></textarea>
                                          <div class="row">
                                             <div class="col-3 mt-2">
                                                 <div class="wrapper">
@@ -240,7 +232,7 @@
                                         <button type="submit" class="btn btn-primary mt-3" id="saveContacted" onclick="saveContacted()"><span class="far fa-paper-plane"></span>&nbsp;&nbsp;Submit</button>&nbsp;
                                          <?php } ?>
                                          <?php }else{ ?>
-                                        <label class="form-control-lg"><?= $report_details_cir['adv_response']?></label>
+                                        <p class="lead ml-3"><?= $report_details_cir['adv_response']?></p>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -259,7 +251,7 @@
                                 <div class="bg-white ui-bordered mb-2"  <?= (empty($report_details_cir['rep_action'])) ? 'style="border: 1px solid #f7ada8;"' : '' ?>>   
                                     <div class="card-body">
                                         <?php if($report_details_cir['rep_action'] == ""){ ?>
-                                            <textarea class="form-control form-control-lg" id="action_response" placeholder="For company representative to complete" rows="5" cols="15"></textarea>
+                                            <textarea class="form-control form-control-lg" id="action_response" placeholder="Please enter your response" rows="5" cols="15"></textarea>
                                             <label class="label-control">Has the CIR been completed satisfactorily?</label>
                                             <select class="form-select mt-2" id="satisfactorily" onchange="getval(this);">
                                               <option value="1">Yes</option>
@@ -429,29 +421,7 @@ Company Representative? </label>
     <script src="<?=base_url();?>assets/admin/js/pages/pages_chat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
-    <style type="text/css">
-      .wrapper {
-        position: relative;
-        width: 400px;
-        height: 200px;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      .signature-pad {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width:400px;
-        height:200px;
-        background-color: white;
-      }
-    </style>
-
     <script type="text/javascript">
-
       var base_url = $('#base_url').val();
 
       <?php 
@@ -611,7 +581,7 @@ Company Representative? </label>
                                 text: "Your CIR is successfully completed and already sent to managing director. Thank You!",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0'; 
+                              //location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0'; 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");

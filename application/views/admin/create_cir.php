@@ -46,64 +46,64 @@
                                     <div class="card-body pb-2">
                                         
                                          <div class="form-group">
-                                            <label class="form-label mb-2">Select Adviser<span style="color:red;"> *</span></label>
-                                            <select id="adviser_id" class="select2-demo form-control select2-hidden-accessible" style="width: 100%" data-select2-id="31" tabindex="-1" aria-hidden="true" onchange="getHistory(this)">
-                                            <?php if($adviser_list){ ?>
-                                                <?php foreach($adviser_list as $adv){ ?>
-                                                     <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
-                                            <?php } ?>
-                                        <?php } ?>   
-                                        </select>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Select Adviser</label>
+                                            <select id="adviser_id" class="js-select" style="width: 100%" onchange="getHistory(this)">
+                                                <?php if($adviser_list){ ?>
+                                                    <?php foreach($adviser_list as $adv){ ?>
+                                                        <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
+                                                    <?php } ?>
+                                                <?php } ?>   
+                                            </select>
                                         </div> 
                                         <div class="form-group">
-                                            <label class="form-label mb-2">Report Number</label><span style="color:red;"> *</span><br>
-                                            <label class="form-label" style="font-size: 15px">CIR2021<?=$report_number['report_number'] ?></label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Report Number</label><br>
+                                            <label class="form-label-lg" style="font-size: 15px">CIR2021<?=$report_number['report_number'] ?></label>
                                             <input type="hidden" id="report_number" class="form-control" value="CIR2021<?=$report_number['report_number'] ?>">
                                         </div> 
                                         <div class="form-group">
-                                            <label class="form-label mb-2">Send Date</label><span style="color:red;"> *</span>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Send Date</label>
                                             <input type="text" id="b-m-dtp-date" class="form-control" placeholder="Sent Date" data-dtp="dtp_BUxli">
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label mb-2">Due Date</label><span style="color:red;"> *</span>
+                                            <label class="form-label-lg mb-2"style="font-weight: bold;" >Due Date</label>
                                             <input type="text" id="b-m-dtp-date2" class="form-control" placeholder="Due Date" data-dtp="dtp_BUxli">
                                         </div>
                                         <div class="form-group">
                                              <div class="row">
                                                    <div class="col-lg-12">
                                                     <div class="input-group input-group-md">
-                                                         <label class="form-label mb-2">Issue Identified</label>
+                                                         <label class="form-label-lg mb-2" style="font-weight: bold;">Issue Identified</label>
                                                       <span class="input-group-btn">
-                                                        <a href="javascript:;" onclick="addIdentified()" title="Add issue Identified"><i class="feather icon-plus ml-2 " style="font-size: 17px; color:#00a323;"></i></a>
+                                                        <a href="javascript:;"  onclick="addIdentified()" title="Add issue Identified"><i class="feather icon-plus ml-2 " style="font-size: 19px; color:#00a323;"></i></a>
                                                       </span>
                                                     </div>
                                                   </div>
                                                 </div>
                                                 <div class="Identified">
-                                                    <input type="text" class="form-control col-md-3" name="issue_identified[]" placeholder="1.">
+                                                    <input type="text" class="form-control form-control-lg col-md-3" name="issue_identified[]" placeholder="1. Issue">
                                                 </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label mb-2">Investigation Information</label><span style="color:red;"> *</span>
-                                            <textarea class="form-control" id="investigation_information" rows="10" cols="10"></textarea>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Investigation Information</label>
+                                            <textarea class="form-control form-control-lg" placeholder="Investigation information" id="investigation_information" rows="10" cols="10"></textarea>
                                         </div>
                                         <div class="form-group">
                                                 <div class="row">
                                                    <div class="col-lg-12">
                                                     <div class="input-group input-group-md">
-                                                        <label class="form-label mb-2">Issue to be address</label>
+                                                        <label class="form-label-lg mb-2" style="font-weight: bold;">Issue to be address</label>
                                                       <span class="input-group-btn">
-                                                        <a href="javascript:;" onclick="addIssueAddress()" title="Add question"><i class="feather icon-plus ml-2 " style="font-size: 17px; color:#00a323;"></i></a>
+                                                        <a href="javascript:;" onclick="addIssueAddress()" title="Add question"><i class="feather icon-plus ml-2 " style="font-size: 19px; color:#00a323;"></i></a>
                                                       </span>
                                                     </div>
                                                   </div>
                                                 </div>
                                                 <div class="addIssueAddress">
-                                                    <input type="text" class="form-control col-md-3" name="issue_address[]" placeholder="1.">
+                                                    <input type="text" class="form-control form-control-lg col-md-3" name="issue_address[]" placeholder="1. Issue to be address">
                                                 </div>
                                         </div>
                                          <div class="form-group">
-                                            <label class="form-label mb-2">Adviser Compliance History</label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Adviser Compliance History</label>
                                             <div class="history"></div>
                                         </div>
                                     </div>
@@ -142,13 +142,13 @@
             var base_url = $('#base_url').val();
             function addIdentified(){
                 var ctr = parseInt($('#numberChk').val()) + 1;
-                var new_input = '<input type="text" class="form-control col-md-3" name="issue_identified[]" placeholder="'+ctr+'.">';
+                var new_input = '<input type="text" class="form-control form-control-lg col-md-3" name="issue_identified[]" placeholder="'+ctr+'. Issue">';
                 $('.Identified').append(new_input);
                 $('#numberChk').val(ctr);
             }
             function addIssueAddress(){
                 var ctr = parseInt($('#numberChk2').val()) + 1;
-                var new_input = '<input type="text" class="form-control col-md-3" name="issue_address[]" placeholder="'+ctr+'.">';
+                var new_input = '<input type="text" class="form-control form-control-lg col-md-3" name="issue_address[]" placeholder="'+ctr+'. Issue to be address">';
                 $('.addIssueAddress').append(new_input);
                 $('#numberChk2').val(ctr);
             }
@@ -189,6 +189,14 @@
                     }
                });
             }
+
+            $(document).ready(function() {
+           
+                 $('.js-select').append('<option selected></option>').select2({
+                        placeholder: "Select Adviser",
+                        allowClear: true
+                    });
+            });
 
             function getHistory(id){
                 $.ajax({

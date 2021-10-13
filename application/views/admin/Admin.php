@@ -58,7 +58,6 @@ class Admin extends CI_Controller
 
             if (1 == $token) {
                 $data['cir_list'] = $this->admin_model->cir_list($_GET['token']);
-                $data['adviser_list'] = $this->admin_model->adviser_list();
                 $data['access_token'] = $_GET['token'];
                 $this->load->view('admin/cir_list', $data);
             } else {
@@ -67,33 +66,6 @@ class Admin extends CI_Controller
         } else {
             $this->load->view('admin/access_denied');
         }
-    }
-
-    public function report_history(){
-        $data['report'] = $this->admin_model->report_history();
-        $data['user'] = $this->admin_model->getUserID($_GET['token']);
-
-       // $print_r($data);
-       // // print_r($data['report'][1]['name']);
-
-          $htmlFooter = '
-          <p style="font-size:11px;; text-align: justify; font-family: calibri;">Disclaimer: Eliteinsure has used reasonable endeavours to ensure the accuracy and completeness of the information provided but makes no warranties as to the accuracy or completeness of such information. The information should not be taken as advice. Eliteinsure accepts no responsibility for the results of any omissions or actions taken on basis of this information. This report includes commercially sensitive information. Accordingly, it may be used for the purpose provided; may not be disclosed to any third party; and will be subject to any obligation of confidence owed by the recipient under contract or otherwise.</p><footer>
-              <div class="footer" style="font-size:6pt;">
-                <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
-                <div style="margin-left:520px; margin-top:-15px;" >
-                <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
-                        www.eliteinsure.co.nz
-                    </a>&nbsp;|&nbsp;Page
-                    {PAGENO}
-                </div>
-              </div>
-            </footer>';
-
-        $mpdf = new \Mpdf\Mpdf();
-        $report = $this->load->view('admin/report_history', $data, true);
-        $mpdf->SetHTMLFooter($htmlFooter);
-        $mpdf->WriteHTML($report);
-        $mpdf->Output();
     }
 
     public function report_details()
@@ -162,17 +134,6 @@ class Admin extends CI_Controller
         echo json_encode($this->admin_model->getHistory());
     }
 
-    public function report(){
-        $data['report_details_cir'] = $this->admin_model->report_details();
-        $data['report_details_identified'] = $this->admin_model->report_details_identified();
-        $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
-        $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
-        $data['cir_max'] = $this->admin_model->cir_max();
-
-         $this->load->view('admin/report',$data);
-    }
-
     public function Compliance_Report()
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
@@ -188,7 +149,7 @@ class Admin extends CI_Controller
         $htmlFooter = '
             <footer>
               <div class="footer" style="font-size:6pt;">
-                <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
+                <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
                 <div style="margin-left:520px; margin-top:-15px;" >
                 <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
                         www.eliteinsure.co.nz
@@ -201,6 +162,7 @@ class Admin extends CI_Controller
         $mpdf = new \Mpdf\Mpdf();
         $cirtemplate = $this->load->view('admin/cirtemplate', $data, true);
         $mpdf->SetHTMLFooter($htmlFooter);
+        $mpdf->setFooter('|{PAGENO} of {nbpg}|');
         $mpdf->WriteHTML($cirtemplate);
 
         $addresstemplate = $this->load->view('admin/addresstemplate', $data, true);
@@ -234,11 +196,9 @@ class Admin extends CI_Controller
         $mpdf->AddPage('P');
         $mpdf->WriteHTML($final);
 
-
         if (1 == $_GET['download']) {
             $mpdf->Output('', 'D');
         } else {
-             $mpdf->SetHTMLFooter($htmlFooter);
             $mpdf->Output();
         }
     }
@@ -258,13 +218,7 @@ class Admin extends CI_Controller
            $htmlFooter = '
             <footer>
               <div class="footer" style="font-size:6pt;">
-                <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
-                <div style="margin-left:520px; margin-top:-15px;" >
-                <a style="font-size:11px;" href="https://eliteinsure.co.nz" class="footer-link" target="_blank">
-                        www.eliteinsure.co.nz
-                    </a>&nbsp;|&nbsp;Page
-                    {PAGENO}
-                </div>
+                <img src="' . base_url() . 'assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
               </div>
             </footer>';
 
@@ -306,7 +260,7 @@ class Admin extends CI_Controller
 
         $content = $mpdf->Output('', 'S');
 
-        $attachment = (new Swift_Attachment($content, 'CIR', 'application/pdf'));
+        $attachment = (new Swift_Attachment($content, 'CIR REPORT', 'application/pdf'));
 
         $message = new Swift_Message();
         $message->setSubject('CIR');
@@ -314,9 +268,7 @@ class Admin extends CI_Controller
         $message->setFrom([$_ENV['MAIL_FROM_ADDRESS'] => $_ENV['MAIL_FROM_NAME']]);
         $message->setTo('allanaranda4@gmail.com');
 
-        $message->setBcc(array('executive.admin@eliteinsure.co.nz' => 'Admin'));
-
-        $message->setBody('Please see attached file for CIR');
+        $message->setBody('Please see attached file for CIR Report');
 
         $message->attach($attachment);
 

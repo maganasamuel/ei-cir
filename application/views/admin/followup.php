@@ -55,7 +55,7 @@ img {
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -67,7 +67,7 @@ img {
 </div>
 <div style="margin-top: 310px;">&nbsp;</div>
 
-<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5;text-transform: uppercase">Follow Up & Finalisation</p>
+<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5;text-transform: uppercase">Follow Up AND Finalisation</p>
 
 
 <span>Has the CIR been completed satisfactorily?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -98,10 +98,13 @@ img {
 	
 	</span>&nbsp;No<br><br>
 
+<div class="response">
 <p>If not, what outstanding action/s is required by Eliteinsure Ltd. to be followed up with the 
 Company Representative? </p>
-<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $report_details_cir['if_not']?></label>
-
+</div>
+<div class="response">
+<label><?= $report_details_cir['if_not']?></label>
+</div>
 
 </body>
 </html>
