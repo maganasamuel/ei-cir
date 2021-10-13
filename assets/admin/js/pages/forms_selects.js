@@ -35,7 +35,7 @@ $(function() {
     $(this)
       .wrap('<div class="position-relative"></div>')
       .select2({
-        placeholder: 'Select value',
+        placeholder: 'Select advisers',
         dropdownParent: $(this).parent()
       });
   })

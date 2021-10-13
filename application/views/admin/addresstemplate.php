@@ -30,7 +30,7 @@
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -43,14 +43,16 @@
 <div style="margin-top: 310px;">&nbsp;</div>
 
 
-<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issues to be addressed by the Company Director</p>
+<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issues to be addressed by the Company Representative</p>
 
-<p style="font-size: 13px; margin-top: 10px;">Please note depending on the answers provided Compliance may seek further clarification 
-and further action may be taken.</p><br>
+<p style="font-size: 13px; margin-top: 10px;">Please note that depending on the answers provided, Compliance may seek further clarifications 
+and further actions may be taken.</p><br>
  <?php if($report_details_address){ $i = 0; ?>
     <?php foreach($report_details_address as $rep){ $i++?>
         <p style="font-size: 14px;"><?= $i . '. ' . $rep['issue_address']?></p>
-        <p style="font-size: 14px; margin-left: 20px;">- <?= $rep['adviser_answer']?></p>
+        <div class="response">
+        <p style="font-size: 14px; color:#1881c7 "><?= $rep['adviser_answer']?></p>
+    	</div>
   <?php } ?>
 <?php } ?> 
 </body>

@@ -20,6 +20,14 @@
 		}
 		pre {font-family: Trebuchet MS, sans-serif
 		}
+    @page{
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+    .response{
+    text-align: justify;
+    text-justify: inter-word;
+  }
 	</style>
 </head>
 <body style="font-family: Trebuchet MS, sans-serif	">
@@ -30,7 +38,7 @@
 </div>
 
 <div style="position:absolute;top:0.18in;left:1.20in;width:4.36in;line-height:0.27in;">
-  <img src="<?=base_url();?>assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
+  <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
 <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
@@ -63,22 +71,33 @@
   <tr>
     <td width="150px">Adviser's Compliance History</td>
     <td>
-    	  <?php if($reportHistory){ ?>
-            <?php foreach($reportHistory as $rep){ ?>
-                <label>CH2021<?=  $rep['report_number'] ?></label>
+    	 <?php if($reportHistory){
+            $history = "";?>
+            <?php foreach($reportHistory as $rep){
+                 $history .= 'CIR2021' . $rep['report_number'] . ','
+              ?>
             <?php } ?>
         <?php } ?> 
+       <label><?php 
+      if($reportHistory){
+          echo rtrim($history,", ") ;   
+      }else{
+
+      }
+       ?></label>
     </td>
   </tr>
 </table>
-<p style="font-size: 18px; margin-top: 30px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issue Identified</p>
+<p style="font-size: 18px; margin-top: 30px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Issues Identified</p>
  <?php if($report_details_identified){ $i = 0; ?>
         <?php foreach($report_details_identified as $rep){ $i++?>
                 <p style="margin-bottom: -40px; font-size: 14px; margin-top: 30px;"><?= $i . '. ' . $rep['issue_identified']?></p><br>
         <?php } ?>
 <?php } ?> 
 <p style="font-size: 18px; margin-top: 70px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Investigation Information</p>
+<div class="response">
 <pre style="margin-bottom: -40px; font-size: 14px;margin-top: 30px;"><?= $report_details_cir['investigation_information'] ?></pre><br>
+</div>
 </body>
 </html>
 	
