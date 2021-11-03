@@ -73,7 +73,7 @@ img {
 <div class="row2" style=" font-size: 13px; margin-bottom: 30px;">
   <div class="column2"> 
   	<label>Reviewed the Information</label> <br><br><br>
-  	<label>Appropriate Adviser Action Taken</label> <br><br><br>
+  	<label>Appropriate <?= ($report_details_cir['systype'] == 0)  ? 'contractor/employee' : 'Adviser' ?> Action Taken</label> <br><br><br>
   	<label>Customer’s Position Rectified</label><br><br><br>
 	<label>Add to Learning Points (Complaints or Business L/P)</label><br><br><br>
 	<label>Requested Additional Information</label><br><br><br>

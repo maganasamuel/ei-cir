@@ -34,6 +34,9 @@ class Admin extends CI_Controller
 
             if (1 == $token) {
                 $data['adviser_list'] = $this->admin_model->adviser_list();
+               
+                $data['admin_adviser'] = $this->admin_model->admin_adviser();
+         
                 $data['report_number'] = $this->admin_model->report_number();
                 $data['access_token'] = $_GET['token'];
                 $data['user_details'] = $this->admin_model->getUserID($_GET['token']);
@@ -59,6 +62,7 @@ class Admin extends CI_Controller
             if (1 == $token) {
                 $data['cir_list'] = $this->admin_model->cir_list($_GET['token']);
                 $data['adviser_list'] = $this->admin_model->adviser_list();
+                $data['admin_adviser'] = $this->admin_model->admin_adviser();
                 $data['access_token'] = $_GET['token'];
                 $this->load->view('admin/cir_list', $data);
             } else {
@@ -77,7 +81,7 @@ class Admin extends CI_Controller
        // // print_r($data['report'][1]['name']);
 
           $htmlFooter = '
-          <p style="font-size:11px;; text-align: justify; font-family: calibri;">Disclaimer: Eliteinsure has used reasonable endeavours to ensure the accuracy and completeness of the information provided but makes no warranties as to the accuracy or completeness of such information. The information should not be taken as advice. Eliteinsure accepts no responsibility for the results of any omissions or actions taken on basis of this information. This report includes commercially sensitive information. Accordingly, it may be used for the purpose provided; may not be disclosed to any third party; and will be subject to any obligation of confidence owed by the recipient under contract or otherwise.</p><footer>
+          <p style="font-size:9px;; text-align: justify; font-family: calibri;">Disclaimer: Eliteinsure has used reasonable endeavours to ensure the accuracy and completeness of the information provided but makes no warranties as to the accuracy or completeness of such information. The information should not be taken as advice. Eliteinsure accepts no responsibility for the results of any omissions or actions taken on basis of this information. This report includes commercially sensitive information. Accordingly, it may be used for the purpose provided; may not be disclosed to any third party; and will be subject to any obligation of confidence owed by the recipient under contract or otherwise.</p><footer>
               <div class="footer" style="font-size:6pt;">
                 <img src="assets/admin/img/logo.png" alt="eliteinsure" class="logo" width="200"/>
                 <div style="margin-left:520px; margin-top:-15px;" >
@@ -104,7 +108,7 @@ class Admin extends CI_Controller
             $data['report_details_cir'] = $this->admin_model->report_details();
             $data['report_details_identified'] = $this->admin_model->report_details_identified();
             $data['report_details_address'] = $this->admin_model->report_details_address();
-            $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
+            $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$_GET['type']);
             $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
             $data['cir_max'] = $this->admin_model->cir_max();
             $this->load->view('admin/report_details', $data);
@@ -166,7 +170,7 @@ class Admin extends CI_Controller
         $data['report_details_cir'] = $this->admin_model->report_details();
         $data['report_details_identified'] = $this->admin_model->report_details_identified();
         $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$_GET['type']);
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
         $data['cir_max'] = $this->admin_model->cir_max();
 
@@ -181,7 +185,7 @@ class Admin extends CI_Controller
         $data['report_details_cir'] = $this->admin_model->report_details();
         $data['report_details_identified'] = $this->admin_model->report_details_identified();
         $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$_GET['type']);
         $data['cir_max'] = $this->admin_model->cir_max();
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
 
@@ -236,7 +240,7 @@ class Admin extends CI_Controller
 
 
         if (1 == $_GET['download']) {
-            $mpdf->Output('', 'D');
+            $mpdf->Output('Report.pdf', 'D');
         } else {
              $mpdf->SetHTMLFooter($htmlFooter);
             $mpdf->Output();
@@ -247,11 +251,12 @@ class Admin extends CI_Controller
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_GET['report_number'] = $this->input->post('report_number');
+        $type = $this->input->post('type');
 
         $data['report_details_cir'] = $this->admin_model->report_details();
         $data['report_details_identified'] = $this->admin_model->report_details_identified();
         $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$type);
         $data['cir_max'] = $this->admin_model->cir_max();
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
 
@@ -306,17 +311,25 @@ class Admin extends CI_Controller
 
         $content = $mpdf->Output('', 'S');
 
-        $attachment = (new Swift_Attachment($content, 'CIR', 'application/pdf'));
+
+        if($type == 0){
+            $subject = "IR";
+        }else{
+            $subject = "CIR";
+        }
+
+        $attachment = (new Swift_Attachment($content, $subject, 'application/pdf'));
+
 
         $message = new Swift_Message();
-        $message->setSubject('CIR');
+        $message->setSubject($subject);
 
         $message->setFrom([$_ENV['MAIL_FROM_ADDRESS'] => $_ENV['MAIL_FROM_NAME']]);
         $message->setTo('allanaranda4@gmail.com');
 
-        $message->setBcc(array('executive.admin@eliteinsure.co.nz' => 'Admin'));
+        $message->setBcc(array('allanaranda4@gmail.com' => 'Admin'));
 
-        $message->setBody('Please see attached file for CIR');
+        $message->setBody('Please see attached file for '.$subject.'');
 
         $message->attach($attachment);
 

@@ -36,15 +36,21 @@
                        
                         <div class="nav-tabs-top">
                             <ul class="nav nav-tabs">
+                            <?php if($_GET['type'] == 1){?>
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#user-edit-account">Compliance Incident Report</a>
                                 </li>
+                            <?php } else { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#user-edit-account">Incident Report</a>
+                                </li>
+                            <?php } ?>
                             </ul>
                             <form class="form-horizontal" style="background-color: white;" action="javascript:;" method="POST" id="saveCIRForm">
                             <div class="tab-content">   
                                 <div class="tab-pane fade show active" id="user-edit-account">
                                     <div class="card-body pb-2">
-                                        
+                                <?php if($_GET['type'] == 1){?>
                                          <div class="form-group">
                                             <label class="form-label-lg mb-2" style="font-weight: bold;">Select Adviser</label>
                                             <select id="adviser_id" class="js-select" style="width: 100%" onchange="getHistory(this)">
@@ -55,11 +61,32 @@
                                                 <?php } ?>   
                                             </select>
                                         </div> 
+
                                         <div class="form-group">
                                             <label class="form-label-lg mb-2" style="font-weight: bold;">Report Number</label><br>
                                             <label class="form-label-lg" style="font-size: 15px">CIR2021<?=$report_number['report_number'] ?></label>
                                             <input type="hidden" id="report_number" class="form-control" value="CIR2021<?=$report_number['report_number'] ?>">
                                         </div> 
+                                <?php } else { ?>
+                                        <div class="form-group">
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Select Employee/Contractor</label>
+                                            <select id="adviser_id" class="js-select" style="width: 100%" onchange="getHistory(this)">
+                                                <?php if($admin_adviser){ ?>
+                                                    <?php foreach($admin_adviser as $adm){ ?>
+                                                        <option value="<?=$adm['id'] ?>"><?=$adm['name']?></option>
+                                                    <?php } ?>
+                                                <?php } ?>   
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Report Number</label><br>
+                                            <label class="form-label-lg" style="font-size: 15px">IR2021<?=$report_number['report_number'] ?></label>
+                                            <input type="hidden" id="report_number" class="form-control" value="IR2021<?=$report_number['report_number'] ?>">
+                                        </div> 
+                                <?php } ?>
+
+                                        
                                         <div class="form-group">
                                             <label class="form-label-lg mb-2" style="font-weight: bold;">Send Date</label>
                                             <input type="text" id="b-m-dtp-date" class="form-control" placeholder="Sent Date" data-dtp="dtp_BUxli">
@@ -102,11 +129,19 @@
                                                     <input type="text" class="form-control form-control-lg col-md-3" name="issue_address[]" placeholder="1. Issue to be address">
                                                 </div>
                                         </div>
+                                <?php if($_GET['type'] == 1){?>
                                          <div class="form-group">
                                             <label class="form-label-lg mb-2" style="font-weight: bold;">Adviser Compliance History</label>
                                             <div class="history"></div>
                                         </div>
+                                 <?php } else { ?>
+                                        <div class="form-group">
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Contractor/Employee Incident History</label>
+                                            <div class="history"></div>
+                                        </div>
+                                <?php } ?>
                                     </div>
+                             
                                     <hr class="border-light m-0">
                                 </div>
                             </div>
@@ -118,6 +153,7 @@
                         </div>
                         <input type="hidden" id="numberChk" value="1"> 
                         <input type="hidden" id="numberChk2" value="1"> 
+                        <input type="hidden" id="type" value="<?= $_GET['type'] ?>"> 
                     </form> 
                 </div>
                     <!-- [ content ] End -->
@@ -139,6 +175,10 @@
     <?php $this->load->view('admin/common/js');?>
     <script src="<?=base_url();?>assets/admin/js/pages/forms_pickers.js"></script>
     <script type="text/javascript">
+
+            
+
+
             var base_url = $('#base_url').val();
             function addIdentified(){
                 var ctr = parseInt($('#numberChk').val()) + 1;
@@ -169,15 +209,21 @@
                         investigation_information: $("#investigation_information").val(),
                         issue_address: issue_address,
                         token: $("#token").val(),
+                        type: $("#type").val(),
                         representative_id: $("#user_id").val() //TO DO GET SESSION OR PARAMT
                     },
                     success: (res) => {
-                        console.log(res);
+                        var text = "";
+                        if($("#type").val() == 1){
+                            text = "CIR submitted and emailed to adviser!";
+                        }else{
+                            text = "IR submitted and emailed!";
+                        }
                         if(res==1){
                             $("#save_cir").buttonLoader('stop');
                             swal({ 
                                 title: "Sent", 
-                                text: "CIR submitted and emailed to adviser!",
+                                text: text,
                                 type: "success" 
                             },function(ret) {
                                 window.location.reload();
@@ -191,11 +237,18 @@
             }
 
             $(document).ready(function() {
-           
-                 $('.js-select').append('<option selected></option>').select2({
-                        placeholder: "Select Adviser",
+                
+                var text = "";
+                if($("#type").val() == 1){
+                    text = "Select Adviser";
+                }else{
+                    text = "Select Contractor/Employee";
+                }
+
+                $('.js-select').append('<option selected></option>').select2({
+                        placeholder: text,
                         allowClear: true
-                    });
+                });
             });
 
             function getHistory(id){
@@ -204,16 +257,22 @@
                     type: 'POST',
                     data: {
                         adviser_id:id.value,
-                        token:$("#token").val()
+                        token:$("#token").val(),
+                        type:$("#type").val()
                     },
                     success: (res) => {
 
                         $(".history").html('');
                         var obj = jQuery.parseJSON(res.toString())
-                        console.log(obj)
-                        console.log(obj.length)
+                        
+                        if($("#type").val() == 1){
+                        text = "CIR2021";
+                        }else{
+                            text = "IR2021";
+                        }
+
                         for(var i=0; i < obj.length; i++){
-                            $(".history").append('<label style="margin-right: 5px;">CIR2021'+obj[i]['report_number']+'</label>')
+                            $(".history").append('<label style="margin-right: 5px;">'+text+obj[i]['report_number']+'</label>')
                         }
                     }
                });   

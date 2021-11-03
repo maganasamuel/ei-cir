@@ -78,8 +78,13 @@
                                 <div class="media align-items-center my-4 h4">
                                     <div class="ion ion-md-albums ui-w-60 text-center text-large"></div>
                                     <div class="media-body ml-1">
-                                        Compliance Investigation Report (CIR)
-                                        <div class="text-muted text-tiny font-weight-light"></div>
+                                        <?php if($_GET['type'] == 1){?>
+                                            Compliance Investigation Report (CIR)
+                                            <div class="text-muted text-tiny font-weight-light"></div>
+                                        <?php } else { ?>
+                                             Incident Report (IR)
+                                            <div class="text-muted text-tiny font-weight-light"></div>
+                                        <?php } ?>
                                     </div>
                                 </div>
 
@@ -89,7 +94,11 @@
                                     <table class="table user-view-table m-0">
                                         <tbody>
                                             <tr style="width: 500px;">
-                                                <td style="font-weight: bold;">Adviser Name</td>
+                                                <td style="font-weight: bold;"><?php if($_GET['type'] == 1){?>
+                                                    Adviser
+                                                    <?php } else { ?>
+                                                     Contractor/Employee
+                                                    <?php } ?> Name</td>
                                                 <td><?= $report_details_cir['name']?></td>
                                             </tr>
                                             <tr>
@@ -98,19 +107,34 @@
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">Report Number</td>
-                                                <td>CIR2021<?= $cir_max['report_number'] ?></td>
+                                                <td><?php if($_GET['type'] == 1){?>
+                                                        CIR2021<?=$cir_max['report_number'] ?></td>
+                                                    <?php } else { ?>
+                                                        IR2021<?=$cir_max['report_number'] ?></td>
+                                                    <?php } ?>
                                                 <input type="hidden" id="report_number" value="<?= $_GET['report_number'] ?>">
+                                                <input type="hidden" id="type" value="<?= $_GET['type'] ?>">
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold;">Date Sent & Due Date</td>
                                                 <td>Sent Date: <?= date('d-m-Y', strtotime($report_details_cir['send_date'])) ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Due Date: <?= date('d-m-Y', strtotime($report_details_cir['due_date'])) ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bold;">Adviser Compliance History</td>
+                                                <td style="font-weight: bold;">
+                                                <?php if($_GET['type'] == 1){?>
+                                                       Adviser Compliance History
+                                                    <?php } else { ?>
+                                                        Contractor/Employee <br>Incident Report
+                                                    <?php } ?></td>
                                                 <td><?php if($reportHistory){
                                                         $history = "";?>
                                                         <?php foreach($reportHistory as $rep){
-                                                            $history .= 'CIR2021' . $rep['report_number'] . ', '
+                                                            if($_GET['type'] == 1){
+                                                                $text = "CIR2021";
+                                                            }else{
+                                                                $text = "IR2021";
+                                                            }
+                                                            $history .= $text . $rep['report_number'] . ', '
                                                         ?>
                                                         <?php } ?>
                                                     <?php } ?> 
@@ -178,7 +202,12 @@
                                             <label class="form-control-lg"><?= $i . '. ' . $rep['issue_address']?></label><br>
                                             <?php if($report_details_cir['to_address'] == 0){ ?>
                                                 <input type="hidden" class="form-control form-control-lg" name="id_question[]" value="<?= $rep['id_question'] ?>" placeholder="Please enter your answer">
-                                                <input type="text" class="form-control form-control-lg" name="answer_question[]" placeholder="For adviser to complete">
+                                                <input type="text" class="form-control form-control-lg" name="answer_question[]" placeholder="<?php 
+                                                 if($_GET['type'] == 1){
+                                                    echo 'For adviser to complete';
+                                                 }else{
+                                                    echo 'For contractor/employee to complete';
+                                                 }?>">
                                                 <?php }else{ ?>
                                                 <label class="ml-4 form-control-lg"><?= $rep['adviser_answer']?></label><br>
                                                 <?php } ?>
@@ -193,7 +222,8 @@
                                 <div class="media align-items-center mb-4 h4">
                                     <div class="ion ion-ios-create ui-w-60 text-center text-large"></div>
                                     <div class="media-body ml-1">
-                                        Company Representative Response
+                                         <?= ($_GET['type'] == 0)  ? "Management Reponse" : "
+                                        Company Representative Response" ?> 
                                         <div class="text-muted text-tiny font-weight-light"></div>
                                     </div>
                                 </div>
@@ -217,7 +247,11 @@
                                 <div class="media align-items-center mb-4 h4">
                                     <div class="ion ion-ios-create ui-w-60 text-center text-large"></div>
                                     <div class="media-body ml-1">
-                                        Contracted Adviser's Response
+                                        <?php if($_GET['type'] == 1){?>
+                                             Contracted Adviser's Response
+                                        <?php } else { ?>
+                                                Contractor/Employee Contracted Response
+                                        <?php } ?>
                                         <div class="text-muted text-tiny font-weight-light"></div>
                                     </div>
                                 </div>
@@ -225,7 +259,12 @@
                                     <div class="card-body">
                                         <?php if($report_details_cir['adv_response'] == ""){ ?>
                                         <?php if($_GET['user_type'] == 1){ ?>
-                                         <textarea class="form-control-lg form-control" placeholder="For adviser to complete" id="adviser_response" rows="5" cols="15"></textarea>
+                                         <textarea class="form-control-lg form-control" placeholder="<?php 
+                                                 if($_GET['type'] == 1){
+                                                    echo 'For adviser to complete';
+                                                 }else{
+                                                    echo 'For employee/contracted to complete';
+                                                 }?>" id="adviser_response" rows="5" cols="15"></textarea>
                                          <div class="row">
                                             <div class="col-3 mt-2">
                                                 <div class="wrapper">
@@ -252,7 +291,7 @@
                                 <div class="media align-items-center mb-4 h4">
                                     <div class="ion ion-ios-create ui-w-60 text-center text-large"></div>
                                     <div class="media-body ml-1">
-                                         Action Taken By Company Representative
+                                        <?= ($_GET['type'] == 0)  ? "Action Taken By Management" : "Action Taken By Company Representative" ?> 
                                         <div class="text-muted text-tiny font-weight-light"></div>
                                     </div>
                                 </div>
@@ -260,7 +299,7 @@
                                     <div class="card-body">
                                         <?php if($report_details_cir['rep_action'] == ""){ ?>
                                             <textarea class="form-control form-control-lg" id="action_response" placeholder="For company representative to complete" rows="5" cols="15"></textarea>
-                                            <label class="label-control">Has the CIR been completed satisfactorily?</label>
+                                            <label class="label-control">Has the <?= ($_GET['type'] == 0)  ? "IR" : "CIR" ?> been completed satisfactorily?</label>
                                             <select class="form-select mt-2" id="satisfactorily" onchange="getval(this);">
                                               <option value="1">Yes</option>
                                               <option value="2">No</option>
@@ -282,7 +321,7 @@ Company Representative? </label>
                                                     </select></td>
                                             </tr>
                                             <tr style="width: 500px;">
-                                                <td><label class="label-control">Appropriate Adviser Action Taken</label><br></td>
+                                                <td><label class="label-control">Appropriate <?= ($_GET['type'] == 0)  ? "Contractor/Employee" : "Adviser" ?>  Action Taken</label><br></td>
                                                 <td> <select class="form-select" name="finalisation[]" aria-label="Default select example">
                                                       <option value="1">Yes</option>
                                                       <option value="2">No</option>
@@ -505,7 +544,8 @@ Company Representative? </label>
                         id_question: id_question,
                         answer_question: answer_question,
                         report_number: $("#report_number").val(),
-                        token:$("#token").val()
+                        token:$("#token").val(),
+                        $type:$("#type").val()
                     },
                     success: (res) => {
                         console.log(res);
@@ -516,7 +556,7 @@ Company Representative? </label>
                                 text: "Answer submitted. Wait for Company Representative response",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=1'; 
+                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=1&type='+$("#type").val(); 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");
@@ -533,7 +573,8 @@ Company Representative? </label>
                     data: {
                         company_response: $("#company_response").val(),
                         report_number: $("#report_number").val(),
-                        token:$("#token").val()
+                        token:$("#token").val(),
+                        type:$("#type").val()
                     },
                     success: (res) => {
                         $("#copResponseSave").buttonLoader('stop');
@@ -544,7 +585,7 @@ Company Representative? </label>
                                 text: "Your reponse successfully submitted",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0'; 
+                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0&type='+$("#type").val(); 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");
@@ -565,7 +606,8 @@ Company Representative? </label>
                         adviser_response: $("#adviser_response").val(),
                         report_number: $("#report_number").val(),
                         adv_signature:  $("#imageUrl-adv").val(),
-                        token:$("#token").val()
+                        token:$("#token").val(),
+                        type:$("#type").val()
                     },
                     success: (res) => {
                         $("#saveContacted").buttonLoader('stop');
@@ -576,7 +618,7 @@ Company Representative? </label>
                                 text: "Your response successfully submitted",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=1'; 
+                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=1&type='+$("#report_number").val(); 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");
@@ -592,6 +634,13 @@ Company Representative? </label>
               var if_not = $("#if_not").val();
               var finalisation = $("select[name='finalisation[]']").map(function(){return $(this).val();}).get();
               console.log(if_not);
+
+              var text = "";
+              if($("#type").val() == 0){
+                 text = "IR"; 
+              }else{
+                text = "CIR";
+              }
              $.ajax({
                     url: base_url+'Admin/action_response',
                     type: 'POST',
@@ -601,17 +650,18 @@ Company Representative? </label>
                         satisfactorily: satisfactorily,
                         if_not: if_not,
                         finalisation: finalisation.toString(),
-                        signature:data
+                        signature:data,
+                        type:$("#type").val()
                     },
                     success: (res) => {
                         $("#saveActionTaken").buttonLoader('stop');
                         if(res==1){
                             swal({ 
-                                title: "CIR Completed", 
-                                text: "Your CIR is successfully completed and already sent to managing director. Thank You!",
+                                title: text+" Completed", 
+                                text: "Your "+text+" is successfully completed and already sent to managing director. Thank You!",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0'; 
+                              location.href = 'provide_password?report_number='+$("#report_number").val()+'&user_type=0&type='+$("#type").val(); 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");
