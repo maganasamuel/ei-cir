@@ -74,7 +74,7 @@ img {
 </div>
 <div style="margin-top: 310px;">&nbsp;</div>
 
-<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Contracted Adivser's Response</p>
+<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase"><?= ($report_details_cir['systype'] == 0)  ? 'Contractor/Employee' : " Contracted Adviser's" ?> Response</p>
 
 <div class="response">
 <label style="text-align: center;"><?= $report_details_cir['adv_response']?></label><br><br><br>

@@ -70,7 +70,7 @@ img {
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5;text-transform: uppercase">Follow Up AND Finalisation</p>
 
 
-<span>Has the CIR been completed satisfactorily?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span>Has the <?= ($report_details_cir['systype'] == 0)  ? 'IR' : 'CIR' ?> been completed satisfactorily?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <span style="border: 1px solid black;">
 
 	<?php 

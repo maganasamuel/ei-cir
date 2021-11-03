@@ -32,19 +32,55 @@
   <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
-<?php if($_GET['adviser_id'] != "all"){ ?>
-<div style="position:absolute;top:0.72in;left:2.88in;width:5.36in;line-height:0.27in;">
-  <span style="font-style:normal;font-weight:bold;font-size:13pt;font-family:Calibri;color:#44546a">Adviser Compliance Investigation Report History</span>
-</div>
+ <?php if($_GET['type'] == 0){?>
+  
 
- <?php }else{ ?> 
 
-<div style="position:absolute;top:0.72in;left:3.68in;width:4.36in;line-height:0.27in;">
-  <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">Compliance Investigation Register</span>
-</div>
+    <?php if($_GET['adviser_id'] != "all"){ ?>
+
+    <div style="position:absolute;top:0.72in;left:2.68in;width:5.36in;line-height:0.27in;">
+      <span style="font-style:normal;font-weight:bold;font-size:13pt;font-family:Calibri;color:#44546a">Contractor/Employee Investigation Report History</span>
+    </div>
+
+     <?php }else{ ?> 
+
+    <div style="position:absolute;top:0.72in;left:3.98in;width:4.36in;line-height:0.27in;">
+      <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">Incident Investigation Register</span>
+    </div>
+
+
+    <?php } ?>
+
+
+
+
+<?php } else { ?>
+
+
+    <?php if($_GET['adviser_id'] != "all"){ ?>
+
+    <div style="position:absolute;top:0.72in;left:2.88in;width:5.36in;line-height:0.27in;">
+      <span style="font-style:normal;font-weight:bold;font-size:13pt;font-family:Calibri;color:#44546a">Adviser Compliance Investigation Report History</span>
+    </div>
+
+     <?php }else{ ?> 
+
+    <div style="position:absolute;top:0.72in;left:3.68in;width:4.36in;line-height:0.27in;">
+      <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">Compliance Investigation Register</span>
+    </div>
+
+
+    <?php } ?>
+
 
 
 <?php } ?>
+
+
+
+
+
+
 <div style="position:absolute;top:0.26in;left:7.4in;width:90px;line-height:0.27in; background-color: #1881c7;height:70px;">
     <span style="background-colro:red"></span><br><br><br>
 </div>
@@ -52,9 +88,9 @@
 <table id="first" style="position: absolute; margin-top: 100px">
   <tr>
     <?php if($_GET['adviser_id'] != "all"){ ?>
-        <td width="250px">Advsiser Name</td>
+        <td width="250px"><?= ($_GET['type'] == 0)  ? "Contractor/Employee" : "Adviser" ?> Name</td>
     <?php }else{ ?> 
-        <td width="250px">Eliteinsure Advisers</td>
+        <td width="250px">Eliteinsure <?= ($_GET['type'] == 0)  ? "Contractor/Employee" : "Advisers" ?></td>
     <?php } ?>
 
     <td><?php
@@ -81,7 +117,7 @@
     <?php }else{ ?> 
       <td width="250px">Summary Number</td>
     <td width="100%">
-        <?= 'CIR'.date('Ydm') ?>
+      <?= ($_GET['type'] == 0)  ? "IR" .date('Ydm')  : "CIR" .date('Ydm')  ?>
     </td>
     <?php } ?>
   </tr>
@@ -127,7 +163,7 @@
 
 <table id="table" style="position: absolute; margin-top: 50px"  class="table-head">
      <tr>
-        <th>CIR Number</th>
+        <th><?= ($_GET['type'] == 0)  ? "IR" : "CIR" ?> Number</th>
         <th>Adviser Name</th>
         <th>Date Issued</th>
         <th>Date Due</th>
@@ -136,7 +172,7 @@
     <?php if($report){ ?>
         <?php foreach($report as $rep){ ?>
             <tr>
-                <td>CIR2021<?=$rep['report_numbers']?></td>  
+                <td><?= ($_GET['type'] == 0)  ? "IR2021" : "CIR2021" ?><?=$rep['report_numbers']?></td>  
                 <td><?=$rep['name']?></td>
                 <td><?= date('d-m-Y', strtotime($rep['send_date']))?></td>   
                 <td><?= date('d-m-Y', strtotime($rep['due_date'])) ?></td>

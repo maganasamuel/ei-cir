@@ -72,7 +72,7 @@ img {
 </div>
 <div style="margin-top: 310px;">&nbsp;</div>
 
-<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase">Company Representative's Response</p>
+<p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5; text-transform: uppercase"><?= ($report_details_cir['systype'] == 0)  ? "Action taken by management" : "Company Representative's Response" ?></p>
 <div class="response">
 <p><?= $report_details_cir['rep_action']?></p><br><br><br>
 <p>DECLARATION: I declare that the information on this report is a true representation of the 

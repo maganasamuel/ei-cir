@@ -118,6 +118,7 @@
         </div>
     </div>
     <input type="hidden" class="form-control" id="report_number" placeholder="Enter Link Password" value="<?= $_GET['report_number']?>">
+    <input type="hidden" class="form-control" id="type" value="<?= $_GET['type']?>">
 
     <!-- [ content ] End -->
 
@@ -208,7 +209,7 @@
                                 text: "Password Correct!",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'report_details?report_number='+$("#report_number").val()+'&user_type=1'; 
+                              location.href = 'report_details?report_number='+$("#report_number").val()+'&user_type=1&type='+$("#type").val(); 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");
@@ -235,7 +236,7 @@
                                 text: "Login Successfully",
                                 type: "success" 
                             },function(ret) {
-                              location.href = 'report_details?report_number='+$("#report_number").val()+'&user_type=0'; 
+                              location.href = 'report_details?report_number='+$("#report_number").val()+'&user_type=0&type='+$("#type").val(); 
                             })
                         }else{
                             swal("Failed", "Password Invalid,Please try again!", "error");
