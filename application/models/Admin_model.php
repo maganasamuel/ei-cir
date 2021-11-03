@@ -273,13 +273,14 @@ Eliteinsure Admin Team';
         $this->db->where('report_number', $report_number);
         $res = $this->db->update('ta_cir', $data);
 
-        $this->db->select('lpad(MAX(report_number),4,"0") as report_number,representative_id')->from('ta_cir');
+        $this->db->select('lpad(MAX(report_number),4,"0") as report_number,representative_id,type')->from('ta_cir');
         $this->db->where('report_number', $report_number);
 
         $getCIR = $this->db->get();
         $data = $getCIR->row_array();
         $rep_id = $data['representative_id'];
         $textReportNum = $data['report_number'];
+        $type = $data['type'];
 
         $this->db->select('*')->from('users');
         $this->db->where('id', $rep_id);
@@ -289,6 +290,7 @@ Eliteinsure Admin Team';
         $token = $this->input->post('token');
         $email = $data['email'];
         $adviser_name = $data['name'];
+
 
       if($type == 0){
             $text = "";
@@ -306,7 +308,7 @@ Eliteinsure Admin Team';
             $system = "Compliance Investigation Report";
         }
 
-           $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0&type='.$second;
+           $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0&type='.$type;
 
         $bodyMessage = '
 Dear Eliteinsure Representative,
