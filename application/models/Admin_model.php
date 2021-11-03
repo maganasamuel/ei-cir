@@ -21,9 +21,12 @@ class Admin_model extends CI_Model
         $date_from = $_GET['date_from'];
         $date_to = $_GET['date_to'];
         $status = $_GET['status'];
+        $type = $_GET['type'];
 
         $this->db->select('*,lpad(a.report_number,4,"0") as report_numbers,a.status as cir_status')->from('ta_cir a');
         $this->db->join('advisers b', 'b.id = a.adviser_id', 'left');
+        $this->db->where('a.type', $type);
+
 
         if (!str_contains($adviser_id, 'all')) {
             $this->db->where('adviser_id in ('.$adviser_id.')');   
@@ -63,6 +66,30 @@ class Admin_model extends CI_Model
         }
     }
 
+     public function admin_adviser()
+    {
+        $type = array('Staff','Management');
+        $this->db->select('*')->from('advisers');
+        $this->db->where_in('type', $type);
+        $this->db->order_by('name', 'asc');
+        $query = $this->db->get();
+
+        // $db2 = $this->load->database('second', TRUE);
+        // $query = $db2->query("SELECT * FROM ei_test.ta_user a WHERE a.id_user IN (SELECT MAX(id_user) FROM ta_user WHERE id_user != '1' and email_address like '%eliteinsure.co.nz' and id_user_type not in ('2','7','8') GROUP BY email_address) AND a.status = '1'  ORDER BY a.first_name");
+
+        // if ($query->num_rows() > 0) {
+        //     return $query->result_array();
+        // } else {
+        //     return 0;
+        // }
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return 0;
+        }
+    }
+
     public function report_number()
     {
         $this->db->select('lpad(IFNULL(MAX(report_number),0)+1,4,"0") as report_number')->from('ta_cir');
@@ -79,7 +106,7 @@ class Admin_model extends CI_Model
     {
         $link_password = $this->generateRandomString();
         
-          $data = array(
+        $data = array(
                 'report_number' => $this->input->post('report_number'),
                 'send_date' => $this->input->post('send_date'),
                 'due_date' => $this->input->post('due_date'),
@@ -87,11 +114,13 @@ class Admin_model extends CI_Model
                 'adviser_id' => $this->input->post('adviser_id'),
                 'link_password' => $link_password,
                 'representative_id' => $this->input->post('representative_id'),
+                'type' =>  $this->input->post('type'),
         ); 
 
         $res = $this->db->insert('ta_cir', $data);
         $uid = $this->db->insert_id();
         $token = $this->input->post('token');
+        $type = $this->input->post('type');
 
         $issue_address = $this->input->post('issue_address');
 
@@ -121,12 +150,23 @@ class Admin_model extends CI_Model
         $email = $data['email'];
         $adviser_name = $data['name'];
 
-        $link = base_url() . 'admin/provide_password?report_number=' . $uid . '&user_type=1';
+        if($type == 0){
+            $text = "";
+            $subject = "Incident Report";
+            $system = "Incident Report";
+        }else{
+            $subject = "CIR";
+            $text = "adviser";
+            $system = "Compliance Investigation Report";
+        }
+
+
+        $link = base_url() . 'admin/provide_password?report_number=' . $uid . '&user_type=1&type=' .$type;
 
         $bodyMessage = '
-Hi adviser ' . $adviser_name . ',
+Hi '.$text.' ' . $adviser_name . ',
 
-Please be informed that a Compliance Investigation Report is being lodged by Eliteinsure representative. We will need your cooperation to complete the investigation. 
+Please be informed that a '.$system.' is being lodged by Eliteinsure representative. We will need your cooperation to complete the investigation. 
 
 Kindly click the link below to answer questions from the company representative: 
 
@@ -136,7 +176,7 @@ Link Password: ' . $link_password . '
 
 Eliteinsure Admin Team';
 
-        $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
+        $this->sendEmail($subject, $email, $link_password, $link, $adviser_name, $bodyMessage);
 
         return 1;
     }
@@ -161,7 +201,7 @@ Eliteinsure Admin Team';
 
     public function report_details()
     {
-        $this->db->select('*')->from('ta_cir a');
+        $this->db->select('*, a.type as systype ')->from('ta_cir a');
         $this->db->join('advisers b', 'b.id = a.adviser_id', 'left');
         $this->db->where('report_number', $_GET['report_number']);
         $query = $this->db->get();
@@ -224,6 +264,7 @@ Eliteinsure Admin Team';
         }
 
         $report_number = $this->input->post('report_number');
+        $type = $this->input->post('type');
 
         $data = array(
             'to_address' => 1,
@@ -249,18 +290,34 @@ Eliteinsure Admin Team';
         $email = $data['email'];
         $adviser_name = $data['name'];
 
-        $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0';
+      if($type == 0){
+            $text = "";
+            $subject = "Incident Report";
+            $system = "Incident Report";
+            $user = "Contractor/Employee";
+            $number = "IR2021";
+            $second = 0;
+        }else{
+            $user = "Adviser";
+            $subject = "CIR";
+            $text = "adviser";
+            $number = "CIR2021";
+            $second = 1;
+            $system = "Compliance Investigation Report";
+        }
+
+           $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0&type='.$second;
 
         $bodyMessage = '
 Dear Eliteinsure Representative,
     
-Adviser subject to Report Number CIR2021' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
+'.$user.' subject to Report Number '.$number.'' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
 
 ' . $link . '
 
 Eliteinsure Admin Team';
 
-        $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
+        $this->sendEmail($subject,$email, '', $link, $adviser_name, $bodyMessage);
 
         $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));
@@ -275,6 +332,7 @@ Eliteinsure Admin Team';
 
         $report_number = $this->input->post('report_number');
         $company_response = $this->input->post('company_response');
+        $type = $this->input->post('type');
 
         $data = array(
             'rep_response' => $company_response,
@@ -302,12 +360,27 @@ Eliteinsure Admin Team';
         $email = $data['email'];
         $adviser_name = $data['name'];
 
-        $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=1';
+        if($type == 0){
+            $text = "";
+            $subject = "Incident Report";
+            $system = "Incident Report";
+            $user = "Contractor/Employee";
+            $number = "IR2021";
+        }else{
+            $user = "Adviser";
+            $subject = "CIR";
+            $text = "adviser";
+            $number = "CIR2021";
+            $system = "Compliance Investigation Report";
+        }
+
+
+        $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=1&type='.$type;
 
         $bodyMessage = '
 Dear Eliteinsure Representative,
         
-In reference to Compliance Investigation Report no. CIR2021' . $textReportNum . ' being conducted you, please click the link below and provide your response.  
+In reference to '.$system.' no. '.$number.'' . $textReportNum . ' being conducted you, please click the link below and provide your response.  
 
 ' . $link . '
 
@@ -315,7 +388,7 @@ Link Password: ' . $link_password . '
 
 Eliteinsure Admin Team';
 
-        $this->sendEmail($email, $link_password, $link, $adviser_name, $bodyMessage);
+        $this->sendEmail($subject,$email, $link_password, $link, $adviser_name, $bodyMessage);
 
         $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));
@@ -329,6 +402,7 @@ Eliteinsure Admin Team';
         $report_number = $this->input->post('report_number');
         $adviser_response = $this->input->post('adviser_response');
         $adv_signature = $this->input->post('adv_signature');
+        $type = $this->input->post('type');
 
         $data = array(
             'adv_response' => $adviser_response,
@@ -357,18 +431,33 @@ Eliteinsure Admin Team';
         $email = $data['email'];
         $adviser_name = $data['name'];
 
-        $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0';
+        if($type == 0){
+            $text = "";
+            $subject = "Incident Report";
+            $system = "Incident Report";
+            $user = "Contractor/Employee";
+            $number = "IR2021";
+        }else{
+            $user = "Adviser";
+            $subject = "CIR";
+            $text = "adviser";
+            $number = "CIR2021";
+            $system = "Compliance Investigation Report";
+        }
+
+
+        $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0&type='.$type;
 
         $bodyMessage = '
 Dear Eliteinsure Representative,
     
-Adviser subject to Report Number CIR2021' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
+'.$user.' subject to Report Number '.$number.'' . $textReportNum . ' has replied to your questions. Please click the link below to continue the investigation. 
 
 ' . $link . '
 
 Eliteinsure Admin Team';
 
-       $this->sendEmail($email, '', $link, $adviser_name, $bodyMessage);
+       $this->sendEmail($subject,$email, '', $link, $adviser_name, $bodyMessage);
 
         $data = array('access_status' => 0);
         $this->db->where('report_number', $this->input->post('report_number'));
@@ -444,10 +533,10 @@ Eliteinsure Admin Team';
         return $randomString;
     }
 
-    public function sendEmail($email, $password, $link, $adviser_name, $bodyMessage)
+    public function sendEmail($subject,$email, $password, $link, $adviser_name, $bodyMessage)
     {
         $message = new Swift_Message();
-        $message->setSubject('CIR');
+        $message->setSubject($subject);
 
         $message->setFrom([$_ENV['MAIL_FROM_ADDRESS'] => $_ENV['MAIL_FROM_NAME']]);
         $message->setTo($email);
@@ -481,8 +570,12 @@ Eliteinsure Admin Team';
 
     public function getHistory()
     {
+
+
         $this->db->select('lpad(report_number,4,"0") as report_number')->from('ta_cir');
         $this->db->where('adviser_id', $this->input->post('adviser_id'));
+        $this->db->where('type', $this->input->post('type'));
+
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -492,10 +585,11 @@ Eliteinsure Admin Team';
         }
     }
 
-    public function reportHistory($report_number)
+    public function reportHistory($report_number,$type)
     {
         $this->db->select('*')->from('ta_cir');
         $this->db->where('report_number', $_GET['report_number']);
+
         $query1 = $this->db->get();
         $data = $query1->row_array();
         $adviser_id = $data['adviser_id'];
@@ -503,6 +597,7 @@ Eliteinsure Admin Team';
         $this->db->select('lpad(report_number,4,"0") as report_number')->from('ta_cir');
         $this->db->where('adviser_id', $adviser_id);
         $this->db->where('report_number !=', $_GET['report_number']);
+        $this->db->where('type', $type);
         
         $query = $this->db->get();
 
@@ -520,16 +615,22 @@ Eliteinsure Admin Team';
         $this->db->join('model_has_roles c', 'b.id = c.model_id', 'left');
         $this->db->join('roles d', 'd.id = c.role_id', 'left');
         $this->db->where('token', $token);
+        $this->db->where('token', $token);
+
+       
+
+        $type = $_GET['type'];
 
         $query = $this->db->get();
         $data = $query->row_array();
         $id = $data['tokenable_id'];
         $role = $data['role'];
 
-        $this->db->select('lpad(a.report_number,4,"0") as report_number,a.adviser_id,a.send_date,a.due_date,a.representative_id,a.report_number as id,a.status,b.name,c.name as adv_name')->from('ta_cir a');
+        $this->db->select('lpad(a.report_number,4,"0") as report_number,a.adviser_id,a.type ,a.send_date,a.due_date,a.representative_id,a.report_number as id,a.status,b.name,c.name as adv_name')->from('ta_cir a');
         $this->db->join('users b', 'b.id = a.representative_id', 'left');
         $this->db->join('advisers c', 'c.id = a.adviser_id', 'left');
         $this->db->where('report_number !=', '0');
+        $this->db->where('a.type', $type);
 
         if ('admin' != $role) {
             $this->db->where('representative_id', $id);

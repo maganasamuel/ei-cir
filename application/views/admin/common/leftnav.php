@@ -13,22 +13,42 @@
                 <!-- Links -->
                 <ul class="sidenav-inner py-1">
                    <li class="sidenav-item">
+                    <?php if($_GET['type'] == 1){?>
                         <a href="javascript:" class="sidenav-link sidenav-toggle">
                             <i class="sidenav-icon feather icon-plus-square"></i>
                             <div>CIR</div>
                         </a>
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
-                                <a href="<?=base_url();?>admin/cir_list?token=<?= $_GET['token'] ?>" class="sidenav-link">
+                                <a href="<?=base_url();?>admin/cir_list?token=<?= $_GET['token'] ?>&type=<?= $_GET['type'] ?>" class="sidenav-link">
                                     <div>List of CIR</div>
                                 </a>
                             </li>
                              <li class="sidenav-item">
-                                <a href="<?=base_url();?>admin/create_cir?token=<?= $_GET['token'] ?>" class="sidenav-link">
+                                <a href="<?=base_url();?>admin/create_cir?token=<?= $_GET['token'] ?>&type=<?= $_GET['type'] ?>" class="sidenav-link">
                                     <div>Create CIR</div>
                                 </a>
                             </li>
                         </ul>
+                    <?php } else { ?>
+                        <a href="javascript:" class="sidenav-link sidenav-toggle">
+                            <i class="sidenav-icon feather icon-plus-square"></i>
+                            <div>Incident Report</div>
+                        </a>
+                         <ul class="sidenav-menu">
+                            <li class="sidenav-item">
+                                <a href="<?=base_url();?>admin/cir_list?token=<?= $_GET['token'] ?>&type=<?= $_GET['type'] ?>" class="sidenav-link">
+                                    <div>List of IR</div>
+                                </a>
+                            </li>
+                             <li class="sidenav-item">
+                                <a href="<?=base_url();?>admin/create_cir?token=<?= $_GET['token'] ?>&type=<?= $_GET['type'] ?>" class="sidenav-link">
+                                    <div>Create IR</div>
+                                </a>
+                            </li>
+                        </ul>
+                    <?php } ?>
+                       
                     </li>
                 </ul>
             </div>

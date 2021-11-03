@@ -37,26 +37,27 @@
                         <div class="nav-tabs-top">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#user-edit-account">cirliance Incident Report List</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#user-edit-account"><?= ($_GET['type'] == 0)  ? "Incident List" : "Compliance Incident List" ?></a>
                                 </li>
                             </ul>
                             <div class="card spaced-card">
                                     <div class="card-header card-header-flex">
                                         <div>
                                             <div class="flex-right-button">
-                                                <a href="<?=base_url();?>admin/create_cir?token=<?= $access_token ?>" class="btn btn-success btn-md"><i class="ion ion-ios-add-circle text-white"></i> Create CIR</a>
+                                                <a href="<?=base_url();?>admin/create_cir?token=<?= $access_token ?>&type=<?= $_GET['type']?>  " class="btn btn-success btn-md"><i class="ion ion-ios-add-circle text-white"></i> Create <?= ($_GET['type'] == 0)  ? "IR" : "CIR" ?></a>
 
                                                 <a data-toggle="modal" data-target="#modals-top" href="javascript:;" class="btn btn-info btn-md waves-effect"><i class="ion ion-md-archive text-white"></i> Generate Report</a>
                                             </div>
                                         </div>
                                     </div> 
                                     <input type="hidden" id="token" value="<?= $access_token ?>">
+                                    <input type="hidden" id="type" value="<?= $_GET['type'] ?>">
                                     <div class="card-datatable table-responsive">
                                         <table class="datatables-demo table table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Report Number</th>
-                                                    <th>Adviser</th>
+                                                    <th><?= ($_GET['type'] == 0)  ? "Contractor/Employee" : "Adviser" ?></th>
                                                     <th>Company Representative</th>
                                                     <th>Sent Date</th>
                                                     <th>Due Date</th>
@@ -69,7 +70,7 @@
                                             <?php foreach($cir_list as $cir){ ?>
                                             <tr>
                                                 <td>
-                                                    CIR2021<?=$cir['report_number'] ?> 
+                                                <?= ($_GET['type'] == 0)  ? "IR2021" : "CIR2021" ?><?=$cir['report_number'] ?> 
                                                 </td>
                                                 <td>
                                                     <?=$cir['adv_name'] ?> 
@@ -92,10 +93,10 @@
                                                 </td>
                                                 
                                                 <td>
-                                                    <a href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>" class="btn icon-btn btn-sm btn-outline-primary" title="View CIR" >
+                                                    <a href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>&type=<?= $_GET['type']?>" class="btn icon-btn btn-sm btn-outline-primary" title="View PDF" >
                                                         <span class="feather icon-eye"></span>
                                                     </a>
-                                                    <a style="color:green;" href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>&download=1" class="btn icon-btn btn-sm btn-outline-primary" title="Download CIR" >
+                                                    <a style="color:green;" href="<?=base_url()?>admin/Compliance_Report?report_number=<?=$cir['report_number'] ?>&download=1" class="btn icon-btn btn-sm btn-outline-primary" title="Download PDF" >
                                                         <span class="feather icon-download"></span>
                                                     </a>
                                                     <a style="color:red;" href="javascript:;" onclick="delete_cir(this)" id="<?=$cir['report_number'] ?>" class="btn icon-btn btn-sm btn-outline-primary" title="Delete Report" >
@@ -139,14 +140,28 @@
             <div class="modal-body">
                 <div class="form-row">
                     <div class="form-group col">
-                        <label class="form-label">Select Adviser</label>
+                        <label class="form-label">Select <?= ($_GET['type'] == 0)  ? "Contactor/Employee" : "Adviser" ?></label>
                         <select id="adviser_id" class="select2-demo form-control select2-hidden-accessible" style="width: 100%" data-select2-id="31" tabindex="-1" aria-hidden="true" multiple="multiple" name="adviser_list[]">
-                            <option value="all">ALL</option>
-                            <?php if($adviser_list){ ?>
-                                <?php foreach($adviser_list as $adv){ ?>
-                                    <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
+                                <?php if($_GET['type'] == 1){?>
+                                   
+                                    <option value="all">ALL</option>
+                                    <?php if($adviser_list){ ?>
+                                        <?php foreach($adviser_list as $adv){ ?>
+                                            <option value="<?=$adv['id'] ?>"><?=$adv['name']?></option>
+                                        <?php } ?>
+                                    <?php } ?>   
+
+                                <?php } else { ?>
+
+                                     <option value="all">ALL</option>
+                                    <?php if($admin_adviser){ ?>
+                                        <?php foreach($admin_adviser as $adm){ ?>
+                                            <option value="<?=$adm['id'] ?>"><?=$adm['name']?></option>
+                                        <?php } ?>
+                                    <?php } ?>   
+
+
                                 <?php } ?>
-                            <?php } ?>   
                         </select>
                         <span class="required" style="color:red; font-size: 10px; display: none; font-style: italic;">This field is required</span>
                         <div class="clearfix"></div>
@@ -154,7 +169,7 @@
                 </div>
                  <div class="row">
                     <div class="form-group col mb-0">
-                        <label class="form-label">CIR Status</label>
+                        <label class="form-label"><?= ($_GET['type'] == 0)  ? "IR" : "CIR" ?> Status</label>
                         <select id="status" class="select2-demo form-control select2-hidden-accessible" style="width: 100%">
                             <option value="all">ALL</option>
                             <option value="1">Completed</option>
@@ -232,7 +247,7 @@
             }else if(  $(".date-to").val() === ""){
                 $(".date-to").attr("style","border-bottom:1px solid #ff6b81;")
             }else{
-                 window.open(base_url+'Admin/report_history?token='+token+'&adviser_id='+$("#adviser_id").val()+'&date_from='+$(".date-from").val()+'&date_to='+$(".date-to").val()+'&status='+$("#status").val(), "_newtab");    
+                 window.open(base_url+'Admin/report_history?token='+token+'&adviser_id='+$("#adviser_id").val()+'&date_from='+$(".date-from").val()+'&date_to='+$(".date-to").val()+'&status='+$("#status").val()+'&type='+$("#type").val(), "_newtab");    
             }
             
         }

@@ -41,9 +41,17 @@
   <img src="assets/admin/img/elitelogo.png" alt="eliteinsure" class="logo" width="100"/>
 </div>
 
-<div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
-  <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">Compliance Investigation Report (CIR)</span>
-</div>
+ <?php if($report_details_cir['systype'] == 0){?>
+    <div style="position:absolute;top:0.72in;left:5.18in;width:4.36in;line-height:0.27in;">
+          <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">
+           <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">Incident Report (IR)
+      </span>
+    </div>
+<?php } else { ?>
+      <div style="position:absolute;top:0.72in;left:3.18in;width:4.36in;line-height:0.27in;">
+         <span style="font-style:normal;font-weight:bold;font-size:15pt;font-family:Calibri;color:#44546a">Compliance Investigation Report (CIR)</span>
+      </div>
+<?php } ?>
 
 <div style="position:absolute;top:0.26in;left:7.4in;width:90px;line-height:0.27in; background-color: #1881c7;height:70px;">
     <span style="background-colro:red"></span><br><br><br>
@@ -51,7 +59,7 @@
 <div style="margin-top: 310px;">&nbsp;</div>
 <table style="position: absolute; margin-top: 100px">
   <tr>
-    <td width="250px">Adviser</td>
+    <td width="250px"><?= ($report_details_cir['systype'] == 0)  ? "Contractor/Employee" : 'Adviser' ?></td>
     <td><?= $report_details_cir['name'] ?>	</td>
   </tr>
   <tr style="background-color: #c0e1fa;">
@@ -60,7 +68,7 @@
   </tr>
   <tr>
     <td width="250px">Report Number</td>
-    <td>CIR2021<?= $cir_max['report_number'] ?></td>
+    <td><?= ($report_details_cir['systype'] == 0)  ? 'IR2021' : 'CIR2021' ?><?= $cir_max['report_number'] ?></td>
   </tr>
   <tr style="background-color: #c0e1fa;">
     <td width="250px">Date Sent & Due</td>
@@ -69,12 +77,12 @@
     </td>
   </tr>
   <tr>
-    <td width="150px">Adviser's Compliance History</td>
+    <td width="150px"><?= ($report_details_cir['systype'] == 0)  ? 'Contractor/Employee' : "Adviser's" ?> Compliance History</td>
     <td>
     	 <?php if($reportHistory){
             $history = "";?>
             <?php foreach($reportHistory as $rep){
-                 $history .= 'CIR2021' . $rep['report_number'] . ','
+                 $history .= ($report_details_cir['systype'] == 0)  ? 'IR2021'.$rep['report_number'].',' : 'CIR2021'.$rep['report_number'].','
               ?>
             <?php } ?>
         <?php } ?> 
