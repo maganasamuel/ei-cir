@@ -99,7 +99,7 @@
                                              <div class="row">
                                                    <div class="col-lg-12">
                                                     <div class="input-group input-group-md">
-                                                         <label class="form-label-lg mb-2" style="font-weight: bold;">Issue Identified</label>
+                                                         <label class="form-label-lg mb-2" style="font-weight: bold;"><?= ($_GET['type'] == 0)  ? 'Issue(s) Identified' : "Issue to be address" ?></label>
                                                       <span class="input-group-btn">
                                                         <a href="javascript:;"  onclick="addIdentified()" title="Add issue Identified"><i class="feather icon-plus ml-2 " style="font-size: 19px; color:#00a323;"></i></a>
                                                       </span>
@@ -111,14 +111,14 @@
                                                 </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label-lg mb-2" style="font-weight: bold;">Investigation Information</label>
+                                            <label class="form-label-lg mb-2" style="font-weight: bold;"><?= ($_GET['type'] == 0)  ? 'Incident Details' : "Investigation Information" ?> </label>
                                             <textarea class="form-control form-control-lg" placeholder="Investigation information" id="investigation_information" rows="10" cols="10"></textarea>
                                         </div>
                                         <div class="form-group">
                                                 <div class="row">
                                                    <div class="col-lg-12">
                                                     <div class="input-group input-group-md">
-                                                        <label class="form-label-lg mb-2" style="font-weight: bold;">Issue to be address</label>
+                                                        <label class="form-label-lg mb-2" style="font-weight: bold;"><?= ($_GET['type'] == 0)  ? 'Issue(s) to be address' : "Issue to be address" ?></label>
                                                       <span class="input-group-btn">
                                                         <a href="javascript:;" onclick="addIssueAddress()" title="Add question"><i class="feather icon-plus ml-2 " style="font-size: 19px; color:#00a323;"></i></a>
                                                       </span>

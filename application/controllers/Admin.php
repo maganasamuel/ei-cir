@@ -108,7 +108,7 @@ class Admin extends CI_Controller
             $data['report_details_cir'] = $this->admin_model->report_details();
             $data['report_details_identified'] = $this->admin_model->report_details_identified();
             $data['report_details_address'] = $this->admin_model->report_details_address();
-            $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$_GET['type']);
+            $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
             $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
             $data['cir_max'] = $this->admin_model->cir_max();
             $this->load->view('admin/report_details', $data);
@@ -170,7 +170,7 @@ class Admin extends CI_Controller
         $data['report_details_cir'] = $this->admin_model->report_details();
         $data['report_details_identified'] = $this->admin_model->report_details_identified();
         $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$_GET['type']);
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
         $data['cir_max'] = $this->admin_model->cir_max();
 
@@ -185,7 +185,7 @@ class Admin extends CI_Controller
         $data['report_details_cir'] = $this->admin_model->report_details();
         $data['report_details_identified'] = $this->admin_model->report_details_identified();
         $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$_GET['type']);
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
         $data['cir_max'] = $this->admin_model->cir_max();
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
 
@@ -251,12 +251,12 @@ class Admin extends CI_Controller
     {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_GET['report_number'] = $this->input->post('report_number');
-        $type = $this->input->post('type');
+        //$type = $this->input->post('type');
 
         $data['report_details_cir'] = $this->admin_model->report_details();
         $data['report_details_identified'] = $this->admin_model->report_details_identified();
         $data['report_details_address'] = $this->admin_model->report_details_address();
-        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number'],$type);
+        $data['reportHistory'] = $this->admin_model->reportHistory($_GET['report_number']);
         $data['cir_max'] = $this->admin_model->cir_max();
         $data['comp_rep'] = $this->admin_model->comp_rep($_GET['report_number']);
 
@@ -311,6 +311,12 @@ class Admin extends CI_Controller
 
         $content = $mpdf->Output('', 'S');
 
+        $this->db->select('*')->from('ta_cir');
+        $this->db->where('report_number', $this->input->post('report_number'));
+
+        $query1 = $this->db->get();
+        $data = $query1->row_array();
+        $type = $data['type'];
 
         if($type == 0){
             $subject = "IR";

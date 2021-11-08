@@ -150,9 +150,18 @@ class Admin_model extends CI_Model
         $email = $data['email'];
         $adviser_name = $data['name'];
 
+
+
+        $this->db->select('lpad(MAX(report_number),4,"0") as report_number,representative_id,type')->from('ta_cir');
+        $this->db->where('report_number', $uid);
+
+        $getCIR = $this->db->get();
+        $data = $getCIR->row_array();
+        $textReportNum = $data['report_number'];
+
         if($type == 0){
             $text = "";
-            $subject = "Incident Report";
+            $subject = "Incident Report(IR2021".$textReportNum.")";
             $system = "Incident Report";
         }else{
             $subject = "CIR";
@@ -273,13 +282,14 @@ Eliteinsure Admin Team';
         $this->db->where('report_number', $report_number);
         $res = $this->db->update('ta_cir', $data);
 
-        $this->db->select('lpad(MAX(report_number),4,"0") as report_number,representative_id')->from('ta_cir');
+        $this->db->select('lpad(MAX(report_number),4,"0") as report_number,representative_id,type')->from('ta_cir');
         $this->db->where('report_number', $report_number);
 
         $getCIR = $this->db->get();
         $data = $getCIR->row_array();
         $rep_id = $data['representative_id'];
         $textReportNum = $data['report_number'];
+        $type = $data['type'];
 
         $this->db->select('*')->from('users');
         $this->db->where('id', $rep_id);
@@ -290,9 +300,10 @@ Eliteinsure Admin Team';
         $email = $data['email'];
         $adviser_name = $data['name'];
 
+
       if($type == 0){
             $text = "";
-            $subject = "Incident Report";
+            $subject = "Incident Report(IR2021".$textReportNum.")";
             $system = "Incident Report";
             $user = "Contractor/Employee";
             $number = "IR2021";
@@ -306,7 +317,7 @@ Eliteinsure Admin Team';
             $system = "Compliance Investigation Report";
         }
 
-           $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0&type='.$second;
+           $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=0&type='.$type;
 
         $bodyMessage = '
 Dear Eliteinsure Representative,
@@ -362,7 +373,7 @@ Eliteinsure Admin Team';
 
         if($type == 0){
             $text = "";
-            $subject = "Incident Report";
+            $subject = "Incident Report(IR2021".$textReportNum.")";
             $system = "Incident Report";
             $user = "Contractor/Employee";
             $number = "IR2021";
@@ -378,9 +389,9 @@ Eliteinsure Admin Team';
         $link = base_url() . 'admin/provide_password?report_number=' . $report_number . '&user_type=1&type='.$type;
 
         $bodyMessage = '
-Dear Eliteinsure Representative,
+Dear '.$adviser_name.',
         
-In reference to '.$system.' no. '.$number.'' . $textReportNum . ' being conducted you, please click the link below and provide your response.  
+In reference to '.$system.' no. '.$number.'' . $textReportNum . ' being conducted, please click the link below and provide your response.  
 
 ' . $link . '
 
@@ -433,7 +444,7 @@ Eliteinsure Admin Team';
 
         if($type == 0){
             $text = "";
-            $subject = "Incident Report";
+            $subject = "Incident Report(IR2021".$textReportNum.")";
             $system = "Incident Report";
             $user = "Contractor/Employee";
             $number = "IR2021";
@@ -585,7 +596,7 @@ Eliteinsure Admin Team';
         }
     }
 
-    public function reportHistory($report_number,$type)
+    public function reportHistory($report_number)
     {
         $this->db->select('*')->from('ta_cir');
         $this->db->where('report_number', $_GET['report_number']);
@@ -593,7 +604,8 @@ Eliteinsure Admin Team';
         $query1 = $this->db->get();
         $data = $query1->row_array();
         $adviser_id = $data['adviser_id'];
-
+        $type = $data['type'];
+        
         $this->db->select('lpad(report_number,4,"0") as report_number')->from('ta_cir');
         $this->db->where('adviser_id', $adviser_id);
         $this->db->where('report_number !=', $_GET['report_number']);

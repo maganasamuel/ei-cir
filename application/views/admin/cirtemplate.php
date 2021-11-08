@@ -77,7 +77,7 @@
     </td>
   </tr>
   <tr>
-    <td width="150px"><?= ($report_details_cir['systype'] == 0)  ? 'Contractor/Employee' : "Adviser's" ?> Compliance History</td>
+    <td width="150px"><?= ($report_details_cir['systype'] == 0)  ? 'Contractor/Employee IR' : "Adviser's Compliance" ?>  History</td>
     <td>
     	 <?php if($reportHistory){
             $history = "";?>

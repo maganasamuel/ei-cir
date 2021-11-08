@@ -42,8 +42,8 @@ img {
   clear: both;
 }
 #chcbox{
-	margin-left: 220px;
-	text-align: center;
+	margin-left: 120px;
+	text-align: left;
 }
 
 </style>
@@ -69,7 +69,7 @@ img {
 <div style="margin-top: 310px;">&nbsp;</div>
 
 <p style="font-size: 18px; margin-top: 80px; border-bottom: 1px solid #95c4e8; color:#096ab5;text-transform: uppercase">Finalisation</p>
-
+<?php if( $report_details_cir['systype'] == 1){?>
 <div class="row2" style=" font-size: 13px; margin-bottom: 30px;">
   <div class="column2"> 
   	<label>Reviewed the Information</label> <br><br><br>
@@ -82,6 +82,7 @@ img {
 	<label>Updated Complaint Register (Where Applicable)</label><br><br><br>
 	<label>Completed other Action</label><br><br><br>
   </div>
+
   <div class="column2" id="chcbox">
 
 	<span style="border: 1px solid black;">
@@ -329,6 +330,200 @@ img {
 
 	
   </div>
+   <?php } else { ?>
+   	<div class="row2" style=" font-size: 13px; margin-bottom: 30px;">
+  <div class="column2"> 
+  	<label>Is the report completed? </label> <br><br>
+  	<label>Is contractor/employee liable?</label><br><br>
+	<label>Were appropriate actions taken by the company towards employee/contractor?</label><br><br>
+	<label>Were errors/damages remediated/rectified?</label><br><br>
+	<label>Has client/insurer/FMA/Regulatory Body been notified?</label><br><br>
+  </div>
+
+  <div class="column2" id="chcbox">
+
+	<span style="border: 1px solid black;">
+
+	<?php 
+
+	if($report_details_cir['finalisation']['0'] == 1){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	</span>&nbsp;Yes&nbsp;&nbsp;
+	
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['0'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+
+	</span>&nbsp;No<br><br>
+
+	<span style="border: 1px solid black;">
+
+	<?php 
+
+	if($report_details_cir['finalisation']['2'] == 1){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	</span>&nbsp;Yes&nbsp;&nbsp;
+	
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['2'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;No<br><br>
+
+	<span style="border: 1px solid black;">
+
+	<?php 
+
+	if($report_details_cir['finalisation']['4'] == 1){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	</span>&nbsp;Yes&nbsp;&nbsp;
+	
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['4'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;No&nbsp;&nbsp;
+
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['4'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;NA<br><br><br>
+
+	<span style="border: 1px solid black;">
+
+	<?php 
+
+	if($report_details_cir['finalisation']['6'] == 1){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	</span>&nbsp;Yes&nbsp;&nbsp;
+	
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['6'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;No&nbsp;&nbsp;
+
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['6'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;NA<br><br>
+
+
+	<span style="border: 1px solid black;">
+
+	<?php 
+
+	if($report_details_cir['finalisation']['8'] == 1){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	</span>&nbsp;Yes&nbsp;&nbsp;
+	
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['8'] == 2){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;No&nbsp;&nbsp;
+
+	<span style="border: 1px solid black;">
+	
+	<?php
+	
+	if($report_details_cir['finalisation']['8'] == 3){
+		echo "&nbsp;&#10003;";
+	}else{
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+
+	?>
+	
+	</span>&nbsp;NA<br><br>
+
+
+  </div>
+
+	<?php } ?>
 </div><br><br><br><br><br><br><br><br><br><br><br><br><br>	
 <label>Finalised by: _______________________</label>
 <label>Signature:________________________</label>

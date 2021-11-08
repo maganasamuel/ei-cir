@@ -164,7 +164,7 @@
 <table id="table" style="position: absolute; margin-top: 50px"  class="table-head">
      <tr>
         <th><?= ($_GET['type'] == 0)  ? "IR" : "CIR" ?> Number</th>
-        <th>Adviser Name</th>
+        <th><?= ($_GET['type'] == 0)  ? "Contractor/Employee" : "Adviser" ?> Name</th>
         <th>Date Issued</th>
         <th>Date Due</th>
         <th>Status </th>
