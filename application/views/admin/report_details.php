@@ -175,7 +175,7 @@
                                 <div class="media align-items-center mb-4 h4">
                                     <div class="ion ion-ios-archive ui-w-60 text-center text-large"></div>
                                     <div class="media-body ml-1">
-                                        Investigation Report
+                                        <?= ($_GET['type'] == 0)  ? 'Incident Details' : "Investigation Report" ?>
                                         <div class="text-muted text-tiny font-weight-light"></div>
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                 <div class="media align-items-center mb-4 h4">
                                     <div class="ion ion-ios-create ui-w-60 text-center text-large"></div>
                                     <div class="media-body ml-1">
-                                         <?= ($_GET['type'] == 0)  ? "Management Reponse" : "
+                                         <?= ($_GET['type'] == 0)  ? "Management Response" : "
                                         Company Representative Response" ?> 
                                         <div class="text-muted text-tiny font-weight-light"></div>
                                     </div>
@@ -310,6 +310,7 @@ Company Representative? </label>
                                                 <textarea class="form-control-lg form-control" placeholder="Please enter why CIR has not been completed satisfactorily" id="if_not" rows="5" cols="15"></textarea>
                                             </div><br><br>
                                         <h4 class="card-title">Finalisation</h4>
+                                        <?php if($_GET['type'] == 1){?>
                                 <div class="table-responsive">
                                     <table class="table user-view-table m-0" id="finalTable">
                                         <tbody>
@@ -379,6 +380,52 @@ Company Representative? </label>
                                         </tbody>
                                     </table>
                                 </div>
+                              <?php } else { ?>
+  <div class="table-responsive">
+                                    <table class="table user-view-table m-0" id="finalTable">
+                                        <tbody>
+                                            <tr>
+                                                <td ><label class="label-control">Is the report completed?</label><br></td>
+                                                <td> <select class="form-select" name="finalisation[]" aria-label="Default select example">
+                                                      <option value="1">Yes</option>
+                                                      <option value="2">No</option>
+                                                    </select></td>
+                                            </tr>
+                                            <tr style="width: 500px;">
+                                                <td><label class="label-control">Is contractor/employee liable?</label><br></td>
+                                                <td> <select class="form-select" name="finalisation[]" aria-label="Default select example">
+                                                      <option value="1">Yes</option>
+                                                      <option value="2">No</option>
+                                                    </select></td>
+                                            </tr>
+                                            <tr style="width: 500px;">
+                                                <td><label class="label-control">Were appropriate actions taken by the company  <br> towards employee/contractor?</label><br></td>
+                                                <td> <select class="form-select" name="finalisation[]" aria-label="Default select example">
+                                                      <option value="1">Yes</option>
+                                                      <option value="2">No</option>
+                                                      <option value="3">NA</option>
+                                                    </select></td>
+                                            </tr>
+                                            <tr style="width: 500px;">
+                                                <td><label class="label-control">Were errors/damages remediated/rectified?</label><br></td>
+                                                <td> <select class="form-select" name="finalisation[]" aria-label="Default select example">
+                                                      <option value="1">Yes</option>
+                                                      <option value="2">No</option>
+                                                      <option value="3">NA</option>
+                                                    </select></td>
+                                            </tr>
+                                            <tr style="width: 500px;">
+                                                <td><label class="label-control">Has client/insurer/FMA/Regulatory Body  <br>been notified?</label><br></td>
+                                                <td> <select class="form-select" name="finalisation[]" aria-label="Default select example">
+                                                      <option value="1">Yes</option>
+                                                      <option value="2">No</option>
+                                                      <option value="3">NA</option>
+                                                    </select></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php } ?>
                                     <div class="wrapper mt-2">
                                       <canvas style="border: 1px solid #ced4da;" id="signature-pad-rep" class="signature-pad"></canvas>
                                     </div>

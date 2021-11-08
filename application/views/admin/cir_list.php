@@ -247,7 +247,7 @@
             }else if(  $(".date-to").val() === ""){
                 $(".date-to").attr("style","border-bottom:1px solid #ff6b81;")
             }else{
-                 window.open(base_url+'Admin/report_history?token='+token+'&adviser_id='+$("#adviser_id").val()+'&date_from='+$(".date-from").val()+'&date_to='+$(".date-to").val()+'&status='+$("#status").val()+'&type='+$("#type").val(), "_newtab");    
+                 window.location.href(base_url+'Admin/report_history?token='+token+'&adviser_id='+$("#adviser_id").val()+'&date_from='+$(".date-from").val()+'&date_to='+$(".date-to").val()+'&status='+$("#status").val()+'&type='+$("#type").val(), "_newtab");    
             }
             
         }
